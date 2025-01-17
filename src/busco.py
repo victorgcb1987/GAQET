@@ -12,11 +12,10 @@ def run_busco(arguments):
                 "out_fpath": output_dir}
     else:
         run_ = subprocess.run(command, shell=True, stdout=subprocess.PIPE)
-        print(run_.stdout)
         if run_.returncode == 0:
             msg = "BUSCO run succesfully"
         else:
-            msg = "BUSCO Failed: \n {}".format(run_.stderr.decode())
+            msg = "BUSCO Failed: \n {}".format(run_.stdout)
         return {"command": command, "msg": msg,
                 "out_fpath": output_dir}
 
