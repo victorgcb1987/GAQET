@@ -3,7 +3,7 @@ import sys
 
 from pathlib import Path
 
-from scr.busco import run_busco, write_busco_results
+from src.busco import run_busco
 
 
 def parse_arguments():
