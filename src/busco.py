@@ -1,4 +1,4 @@
-from subprocess import run
+import subprocess
 
 def run_busco(arguments):
     output_dir = arguments["output"] / "RunBusco_{}".format(arguments["lineage"])
@@ -11,7 +11,8 @@ def run_busco(arguments):
         return {"command": command, "msg": "BUSCO already done",
                 "out_fpath": output_dir}
     else:
-        run_ = run(command, shell=True, capture_output=True)
+        run_ = subprocess.run(command, shell=True, stdout=subprocess.PIPE)
+        print(run_.stdout)
         if run_.returncode == 0:
             msg = "BUSCO run succesfully"
         else:
