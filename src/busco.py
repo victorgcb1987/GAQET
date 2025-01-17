@@ -1,7 +1,7 @@
 from subprocess import run
 
 def run_busco(arguments):
-    output_dir = arguments["out"] / "RunBusco_{}".format(arguments["lineage"])
+    output_dir = arguments["output"] / "RunBusco_{}".format(arguments["lineage"])
     command = "busco -i {} -c {} -l {} -m {} -o {}".format(arguments["input_file"],
                                                            arguments["threads"],
                                                            arguments["lineage"],
