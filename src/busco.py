@@ -1,0 +1,23 @@
+from subprocess import run
+
+def run_busco(arguments):
+    output_dir = arguments["out"] / "RunBusco_{}".format(arguments["lineage"])
+    command = "busco -i {} -c {} -l {} -m {} -o {}".format(arguments["input_file"],
+                                                           arguments["threads"],
+                                                           arguments["lineage"],
+                                                           arguments["mode"],
+                                                           output_dir)
+    if output_dir.exists():
+        return {"command": command, "msg": "BUSCO already done",
+                "out_fpath": output_dir}
+    else:
+        run_ = run(command, shell=True, capture_output=True)
+        if run_.returncode == 0:
+            msg = "BUSCO run succesfully"
+        else:
+            msg = "BUSCO Failed: \n {}".format(run_.stderr.decode())
+        return {"command": command, "msg": msg,
+                "out_fpath": output_dir}
+
+
+    
