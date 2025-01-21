@@ -5,7 +5,7 @@ from pathlib import Path
 
 from src.busco import run_busco
 
-
+#Function to create arguments and help
 def parse_arguments():
     description = "Assess the completeness of a genome annotation using BUSCO"
     parser = argparse.ArgumentParser(description=description)
@@ -35,6 +35,7 @@ def parse_arguments():
         exit()
     return parser.parse_args()
 
+#Function to compile de arguments into a dictionary
 def get_arguments():
     parser = parse_arguments()
     return {"input_file": Path(parser.input_file),
@@ -43,6 +44,7 @@ def get_arguments():
             "mode": parser.mode,
             "output": Path(parser.out)}
 
+#Main function
 def main():
     arguments = get_arguments()
     busco_results = run_busco(arguments)
