@@ -31,7 +31,7 @@ def run_agat(arguments):
     #But if is not done
     else:
         #Run AGAT with command
-        run_ = subprocess.run(command, shell=True, stderr=subprocess.PIPE)
+        run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
         #Is process has gone well
         if run_.returncode == 0:
             msg = "AGAT run succesfully"
