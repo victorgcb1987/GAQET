@@ -7,7 +7,7 @@ def run_agat(arguments):
     out_fpath = output_dir / "ResultAgat.txt"
 
     #Creating command to run AGAT as a list
-    cmd = ["agat_sp_statistics.pl", "--gff", "{}".format(str(arguments["gff"])), "-o", "{}".format(out_fpath)]
+    cmd = ["agat_sp_statistics.pl", "--gff", "{}".format(arguments["gff"]), "-o", "{}".format(out_fpath)]
 
     #Adding "distribution" to command if it has been selected
     if arguments["distribution"]:
