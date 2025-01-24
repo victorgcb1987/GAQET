@@ -31,13 +31,14 @@ def run_agat(arguments):
     #But if is not done
     else:
         #Run AGAT with command
-        run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
+        run_ = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE)
         #Is process has gone well
+        print(returncode)
         if run_.returncode == 0:
             msg = "AGAT run succesfully"
         #But if not
         else:
-            msg = "AGAT Failed: \n {}".format(run_.stderr)
+            msg = "AGAT Failed: \n {}".format(run_.stdout)
         #Return command, final message and output dir path
         return {"command": cmd, "msg": msg,
                 "out_fpath": out_fpath}
