@@ -3,7 +3,7 @@ import sys
 
 from pathlib import Path
 
-from scr.agar import run_agat
+from src.agar import run_agat
 
 #Function to create arguments and help
 def parse_arguments():
