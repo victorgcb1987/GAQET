@@ -12,7 +12,7 @@ def parse_arguments():
     parser.add_argument("--gff", "-i", type=str,
                         help=help_input, required=True)
     
-    help_gsize = "(Optional) Inform about the genome size in NT in order to compute more statics. 
+    help_gsize = "(Optional) Inform about the genome size in NT in order to compute more statics"
     parser.add_argument("--gs", "-g", type=int,
                         help=help_gsize, default=0)
 
