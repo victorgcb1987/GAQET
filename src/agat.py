@@ -19,8 +19,8 @@ def run_agat(arguments):
         cmd += plot_arg
 
     #Adding "genome size" to command if it has a different value than default
-    if arguments["gsize"] > 0:
-        size_arg = ["-g {}".format(arguments["gsize"])]
+    if arguments["gs"] > 0:
+        size_arg = ["-g {}".format(arguments["gs"])]
         cmd += size_arg
 
 #Check if AGAT is already done
