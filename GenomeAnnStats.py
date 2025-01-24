@@ -46,7 +46,7 @@ def get_arguments():
 
 
 def main():
-    arguments = get_arguments
+    arguments = get_arguments()
     agat_results = run_agat(arguments)
     print(agat_results)
 
