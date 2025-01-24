@@ -3,7 +3,7 @@ import subprocess
 def run_agat(arguments):
     #Creating output dir
     output_dir = arguments["output"] / "RunAgat" 
-    output_dir.mkdir(parents=True, exists_ok=True)
+    output_dir.mkdir(parents=True, exist_ok=True)
     out_fpath = output_dir / "ResultAgat.txt"
 
     #Creating command to run AGAT as a list
