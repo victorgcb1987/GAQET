@@ -39,7 +39,7 @@ def get_arguments():
     return {"gff": Path(parser.gff),
             "gs": parser.gs,
             "distribution": parser.distribution,
-            "plot": parser.plot
+            "plot": parser.plot,
             "output": Path(parser.output)}
 
 
