@@ -26,4 +26,4 @@ def run_busco(arguments):
             msg = "BUSCO Failed: \n {}".format(run_.stderr)
         #Return command, final message and output dir path
         return {"command": command, "msg": msg,
-                "out_fpath": output_dir}
+                "out_fpath": output_dir, "returncode": run_.returncode}

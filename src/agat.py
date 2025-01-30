@@ -27,7 +27,7 @@ def run_agat(arguments):
     if out_fpath.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "AGAT already done",
-                "out_fpath": out_fpath}
+                "out_fpath": out_fpath, "returncode": 99}
     #But if is not done
     else:
         #Run AGAT with command

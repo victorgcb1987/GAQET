@@ -7,7 +7,7 @@ from src.agat import run_agat
 
 #Function to create arguments and help
 def parse_arguments():
-    description = "Summarise de GFF metrics using AGAT toolkit"
+    description = "Module to summarise de GFF metrics using AGAT toolkit"
     parser = argparse.ArgumentParser(description=description)
 
     help_input = "(Required) Input GTF/GFF file"
