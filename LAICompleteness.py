@@ -41,6 +41,8 @@ def get_arguments():
 def main():
     arguments = get_arguments() 
     print(arguments)
+    suffixerator = run_suffixerator(arguments)
+    print(suffixerator)
     #if resuls_harvester["returncode"] != 1 and resuls_finder
 
 
