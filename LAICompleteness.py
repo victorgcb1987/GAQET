@@ -39,7 +39,7 @@ def get_arguments():
     parser = parse_arguments()
     return {"fasta": Path(parser.fasta),
             "gff": Path(parser.gff),
-            "output":Path(parser.output)} 
+            "output": Path(parser.output)} 
             ###
 
 
