@@ -26,7 +26,7 @@ def parse_arguments():
     #help_infinder = ###
 
     help_output = "(Required) Output path"
-    parser.add_argument("--out", "-o", type=str,
+    parser.add_argument("--output", "-o", type=str,
                         help=help_output) #required=True
 
     if len(sys.argv)==1:
@@ -39,7 +39,7 @@ def get_arguments():
     parser = parse_arguments()
     return {"fasta": Path(parser.fasta),
             "gff": Path(parser.gff),
-            "output":Path(parser.out)} 
+            "output":Path(parser.output)} 
             ###
 
 
