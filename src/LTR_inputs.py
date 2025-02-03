@@ -21,7 +21,8 @@ def run_harvest(arguments):
 
 def run_finder(arguments):
     #finder command
-    cmd3 = "LTR_FINDER_parallel -seq {} -threads 10 -harvest_out -size 1000000 -time 300".format(arguments["fasta"])
+    cmd3 = "LTR_FINDER_parallel -seq {} -threads {} -harvest_out -size 1000000 -time 300".format(arguments["fasta"],
+                                                                                                arguments["threads"])
     #run finder
     run3 = subprocess.run(cmd3, shell=True, stderr=subprocess.PIPE)
 

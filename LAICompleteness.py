@@ -23,6 +23,10 @@ def parse_arguments():
 
     #help_inharvest = ###
 
+    help_threads = "Number of threads to run the program"
+    parser.add_argument("--threads", "-t", type=int,
+                        help=help_threads, default=1)
+
     #help_infinder = ###
 
     help_output = "(Required) Output path"
@@ -39,6 +43,7 @@ def get_arguments():
     parser = parse_arguments()
     return {"fasta": Path(parser.fasta),
             "gff": Path(parser.gff),
+            "threads": parser.threads,
             "output": Path(parser.output)} 
             ###
 
