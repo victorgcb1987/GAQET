@@ -8,6 +8,7 @@ from src.LTR_inputs import run_harvest
 from src.LTR_inputs import run_finder
 #from src.LTR_retriever import
 
+#parses command-line arguments
 def parse_arguments():
     description = "Module to assess the completeness of the genome assembly in term of LTR elements (LTR Assembly Index, LAI)"
     parser = argparse.ArgumentParser(description=description)
@@ -37,6 +38,7 @@ def parse_arguments():
     return parser.parse_args()
 
 
+#stores command-line arguments in a dictionary with proper data types
 def get_arguments():
     parser = parse_arguments()
     return {"fasta": Path(parser.fasta),
@@ -46,12 +48,15 @@ def get_arguments():
             ###
 
 
+#main function
 def main():
-    arguments = get_arguments() 
+    arguments = get_arguments()
+    finder = run_finder(arguments) #run finder first to create output dir
+    print(finder)
     suffixerator = run_suffixerator(arguments)
-    harvest = run_harvest(arguments)
-    finder = run_finder(arguments)
     print(suffixerator)
+    harvest = run_harvest(arguments)
+    print(harvest)
 
     #if resuls_harvester["returncode"] != 1 and resuls_finder
 
