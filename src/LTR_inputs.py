@@ -72,7 +72,7 @@ def run_finder(arguments):
     cmd = "LTR_FINDER_parallel -seq {} -threads {} -harvest_out -size 1000000 -time 300 -output {}".format(arguments["fasta"],
                                                                                                 arguments["threads"],
                                                                                                 arguments["output"])
-    cmd2 = "mv {}* {}".format(arguments["fasta"], arguments["output"])
+    cmd2 = "mv {}* {}".format(arguments["fasta"].name, arguments["output"])
 
     #Check if FINDER is already done
     out_file = arguments["output"] / "{}.finder.combine.scn".format(arguments["fasta"].name)
