@@ -51,7 +51,7 @@ def main():
     suffixerator = run_suffixerator(arguments)
     harvest = run_harvest(arguments)
     finder = run_finder(arguments)
-    print(finder)
+    print(suffixerator)
 
     #if resuls_harvester["returncode"] != 1 and resuls_finder
 

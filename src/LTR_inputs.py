@@ -13,7 +13,7 @@ def run_suffixerator(arguments):
 def run_harvest(arguments):
     #taking suffixerator output dir to use it as input
     index = arguments["output"] / arguments["fasta"].name
-    #creating output dir: output path + file .harvest.scn /w fasta file name
+    #creating output: output path + file .harvest.scn /w fasta file name
     out = arguments["output"] / "{}.harvest.scn".format(arguments["fasta"].name)
     #harvest command
     cmd = "gt ltrharvest -index {} -minlenltr 100 -maxlenltr 7000 -mintsd 4 -maxtsd 6 -motif TGCA -motifmis 1 -similar 85 -vic 10 -seed 20 -seqids yes > {}".format(index, out)
@@ -24,8 +24,9 @@ def run_harvest(arguments):
 
 def run_finder(arguments):
     #finder command
-    cmd = "LTR_FINDER_parallel -seq {} -threads {} -harvest_out -size 1000000 -time 300".format(arguments["fasta"],
-                                                                                                arguments["threads"])
+    cmd = "LTR_FINDER_parallel -seq {} -threads {} -harvest_out -size 1000000 -time 300 -o {}".format(arguments["fasta"],
+                                                                                                arguments["threads"],
+                                                                                                arguments["output"])
     #run finder
     run = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
 
