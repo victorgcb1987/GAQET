@@ -51,7 +51,10 @@ def get_arguments():
 #main function
 def main():
     arguments = get_arguments()
-    finder = run_finder(arguments) #run finder first to create output dir
+    #function to create the output directory if this does not exist
+    outdir = create_outdir(arguments)
+    print(outdir)
+    finder = run_finder(arguments)
     print(finder)
     suffixerator = run_suffixerator(arguments)
     print(suffixerator)

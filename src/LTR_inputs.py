@@ -1,13 +1,24 @@
 import subprocess
 
+def create_outdir():
+    outdir = arguments["output"]
+    cmd = "mkdir {}".format(arguments["output"])
+    if outdir.exists():
+        msg = "The output directory {} exists".format(arguments["output"])
+    else:
+        run_ = subprocess.run(cmd, shell=True)
+        msg = "The output directory {} has been created".format(arguments["output"])
+    return{msg}
+
+
 def run_suffixerator(arguments):
-    #creating output dir: output path + dir /w fasta file name
+    #output dir path + name for output files
     index = arguments["output"] / arguments["fasta"].name
     #suffixerator command
     cmd = "gt suffixerator -db {} -indexname {} -tis -suf -lcp -des -ssp -sds -dna".format(arguments["fasta"], index)
 
     #Check if suffixerator is already done
-    if "{}.md5".format(arguments["fasta"].name) in index:
+    if "{}.md5".format(arguments["fasta"].name).exists():
         #Show a message if it is
         return {"command": cmd, "msg": "suffixerator already done",
                 "out_fpath": index}
