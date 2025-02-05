@@ -58,10 +58,10 @@ def run_harvest(arguments):
         run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
         #Is process has gone well
         if run_.returncode == 0:
-            msg = "harvest run succesfully"
+            msg = "HARVEST run succesfully"
         #But if not
         else:
-            msg = "harvest Failed: \n {}".format(run_.stderr)
+            msg = "HARVEST Failed: \n {}".format(run_.stderr)
         #Return command, final message and output dir path
         return {"command": cmd, "msg": msg,
                 "out_fpath": out, "returncode": run_.returncode}
@@ -72,6 +72,7 @@ def run_finder(arguments):
     cmd = "LTR_FINDER_parallel -seq {} -threads {} -harvest_out -size 1000000 -time 300 -output {}".format(arguments["fasta"],
                                                                                                 arguments["threads"],
                                                                                                 arguments["output"])
+    cmd2 = "mv {}* {}".format(arguments["fasta"], arguments["output"])
 
     #Check if FINDER is already done
     out_file = arguments["output"] / "{}.finder.combine.scn".format(arguments["fasta"])
@@ -81,14 +82,15 @@ def run_finder(arguments):
                 "out_fpath": arguments["output"]}
     #But if is not done
     else:
-        #Run harvest
-        run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
+        #Run finder and move out files to out dir
+        run1 = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
+        run2 = subprocess.run(cmd2, shell=True)
         #Is process has gone well
         if run_.returncode == 0:
-            msg = "harvest run succesfully"
+            msg = "FINDER run succesfully"
         #But if not
         else:
-            msg = "harvest Failed: \n {}".format(run_.stderr)
+            msg = " FINDER Failed: \n {}".format(run_.stderr)
         #Return command, final message and output dir path
         return {"command": cmd, "msg": msg,
                 "out_fpath": arguments["output"], "returncode": run_.returncode}
