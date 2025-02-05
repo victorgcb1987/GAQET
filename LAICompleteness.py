@@ -61,8 +61,8 @@ def main():
     harvest = run_harvest(arguments)
     print(harvest)
     
-    #finder = run_finder(arguments)
-    #print(finder)
+    finder = run_finder(arguments)
+    print(finder)
 
     #if resuls_harvester["returncode"] != 1 and resuls_finder
 
