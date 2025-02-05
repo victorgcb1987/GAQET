@@ -48,10 +48,10 @@ def get_arguments():
 
 def main():
     arguments = get_arguments() 
-    print(arguments)
     suffixerator = run_suffixerator(arguments)
     harvest = run_harvest(arguments)
     finder = run_finder(arguments)
+    print(finder)
 
     #if resuls_harvester["returncode"] != 1 and resuls_finder
 
