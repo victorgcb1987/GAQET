@@ -21,14 +21,12 @@ def parse_arguments():
     parser.add_argument("--gff", "-g", type=str,
                         help=help_gff)
 
-    #help_inharvest = ###
-
+    #threads
     help_threads = "Number of threads to run the program"
     parser.add_argument("--threads", "-t", type=int,
                         help=help_threads, default=1)
 
-    #help_infinder = ###
-
+    #output
     help_output = "(Required) Output path"
     parser.add_argument("--output", "-o", type=str,
                         help=help_output) #required=True
