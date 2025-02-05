@@ -55,12 +55,14 @@ def main():
     #function to create the output directory if this does not exist
     outdir = create_outdir(arguments)
     print(outdir)
-    finder = run_finder(arguments)
-    print(finder)
+
     suffixerator = run_suffixerator(arguments)
     print(suffixerator)
     harvest = run_harvest(arguments)
     print(harvest)
+    
+    finder = run_finder(arguments)
+    print(finder)
 
     #if resuls_harvester["returncode"] != 1 and resuls_finder
 
