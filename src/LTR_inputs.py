@@ -75,7 +75,7 @@ def run_finder(arguments):
     cmd2 = "mv {}* {}".format(arguments["fasta"], arguments["output"])
 
     #Check if FINDER is already done
-    out_file = arguments["output"] / "{}.finder.combine.scn".format(arguments["fasta"])
+    out_file = arguments["output"] / "{}.finder.combine.scn".format(arguments["fasta"].name)
     if out_file.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "harvest already done",
