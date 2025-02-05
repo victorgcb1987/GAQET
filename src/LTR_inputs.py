@@ -90,7 +90,7 @@ def run_finder(arguments):
             msg = "FINDER run succesfully"
         #But if not
         else:
-            msg = " FINDER Failed: \n {}".format(run_.stderr)
+            msg = " FINDER Failed: \n {}".format(run1.stderr)
         #Return command, final message and output dir path
         return {"command": cmd, "msg": msg,
                 "out_fpath": arguments["output"], "returncode": run1.returncode}
