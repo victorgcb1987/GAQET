@@ -1,5 +1,8 @@
 import subprocess
 
+from pathlib import Path
+
+
 def create_outdir(arguments):
     outdir = arguments["output"]
     cmd = "mkdir {}".format(arguments["output"])
@@ -18,7 +21,8 @@ def run_suffixerator(arguments):
     cmd = "gt suffixerator -db {} -indexname {} -tis -suf -lcp -des -ssp -sds -dna".format(arguments["fasta"], index)
 
     #Check if suffixerator is already done
-    if "{}.md5".format(arguments["fasta"].name).exists():
+    md5 = Path("{}.md5".format(arguments["fasta"].name))
+    if md5.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "suffixerator already done",
                 "out_fpath": index}
@@ -72,7 +76,7 @@ def run_finder(arguments):
                                                                                                 arguments["output"])
 
     #Check if FINDER is already done
-    out_file = "{}.finder.combine.scn".format(arguments["fasta"])
+    out_file = Path("{}.finder.combine.scn".format(arguments["fasta"]))
     if out_file.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "harvest already done",
