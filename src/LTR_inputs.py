@@ -62,7 +62,7 @@ def run_finder(arguments):
 
     #Check if FINDER is already done
     out = arguments["output"]
-    if "{}.finder.combine.scn".format(arguments["fasta"]) in out:
+    if out.exists() and "{}.finder.combine.scn".format(arguments["fasta"]).exists():
         #Show a message if it is
         return {"command": cmd, "msg": "harvest already done",
                 "out_fpath": arguments["output"]}
