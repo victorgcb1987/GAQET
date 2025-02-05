@@ -86,14 +86,14 @@ def run_finder(arguments):
         run1 = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
         run2 = subprocess.run(cmd2, shell=True)
         #Is process has gone well
-        if run_.returncode == 0:
+        if run1.returncode == 0:
             msg = "FINDER run succesfully"
         #But if not
         else:
             msg = " FINDER Failed: \n {}".format(run_.stderr)
         #Return command, final message and output dir path
         return {"command": cmd, "msg": msg,
-                "out_fpath": arguments["output"], "returncode": run_.returncode}
+                "out_fpath": arguments["output"], "returncode": run1.returncode}
 
 
 #def run_catfiles(arguments):
