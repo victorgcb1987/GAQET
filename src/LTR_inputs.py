@@ -82,12 +82,12 @@ def run_finder(arguments):
                 "out_fpath": arguments["output"]}
     #But if is not done
     else:
-        #Run finder and move out files to out dir
+        #Run finder
         run1 = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
-        run2 = subprocess.run(cmd2, shell=True)
         #Is process has gone well
         if run1.returncode == 0:
             msg = "FINDER run succesfully"
+            run2 = subprocess.run(cmd2, shell=True)
         #But if not
         else:
             msg = " FINDER Failed: \n {}".format(run1.stderr)
