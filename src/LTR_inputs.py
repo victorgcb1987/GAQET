@@ -1,6 +1,6 @@
 import subprocess
 
-def create_outdir():
+def create_outdir(arguments):
     outdir = arguments["output"]
     cmd = "mkdir {}".format(arguments["output"])
     if outdir.exists():
