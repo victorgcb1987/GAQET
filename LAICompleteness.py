@@ -58,8 +58,9 @@ def main():
     print(outdir)
 
     suffixerator = run_suffixerator(arguments)
-    if suffixerator["returncode"] == 1:
-        raise RuntimeError("Suffixerator has failed")
+    if "returncode" in suffixerator:
+        if suffixerator["returncode"] == 1:
+            raise RuntimeError("Suffixerator has failed")
     print(suffixerator)
     harvest = run_harvest(arguments)
     print(harvest)

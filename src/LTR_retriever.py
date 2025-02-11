@@ -3,6 +3,7 @@ import subprocess
 
 from pathlib import Path
 
+
 def create_outdir(arguments):
     #Output directory (to save LTR_retriever input and output files) path
     outdir = arguments["output"]
@@ -28,14 +29,14 @@ def run_suffixerator(arguments):
     if md5.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "suffixerator already done",
-                "out_fpath": index, "returncode": run_.returncode}
+                "out_fpath": index}
     #But if is not done
     else:
         #Run suffixerator
         run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
         #If process has gone well, send this message
         if run_.returncode == 0:
-            msg = "suffixerator ran successfully"
+            msg = "suffixerator ran succesfully"
         #Otherwise, send this error message
         else:
             msg = "suffixerator Failed: \n {}".format(run_.stderr)
@@ -56,7 +57,7 @@ def run_harvest(arguments):
     if out.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "harvest already done",
-                "out_fpath": out, "returncode": run_.returncode}
+                "out_fpath": out}
     #Otherwise, send this error message
     else:
         #Run harvest
@@ -84,7 +85,7 @@ def run_finder(arguments):
     if out_file.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "harvest already done",
-                "out_fpath": arguments["output"], "returncode": run_.returncode}
+                "out_fpath": arguments["output"]}
     #But if is not done
     else:
         #Change the working directory to the "output" path
@@ -113,7 +114,7 @@ def concatenate_outputs(arguments):
     if out_file.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "Concatenation of the output files from Harvest and Finder successfully completed.",
-                "out_fpath": arguments["output"], "returncode": run_.returncode}
+                "out_fpath": arguments["output"]}
     #But if is not done
     else:
         #Run command
