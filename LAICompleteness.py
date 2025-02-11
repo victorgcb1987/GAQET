@@ -3,11 +3,11 @@ import sys
 
 from pathlib import Path
 
-from src.LTR_inputs import create_outdir
-from src.LTR_inputs import run_suffixerator
-from src.LTR_inputs import run_harvest
-from src.LTR_inputs import run_finder
-from src.LTR_inputs import concatenate_outputs
+from src.LTR_retriever import create_outdir
+from src.LTR_retriever import run_suffixerator
+from src.LTR_retriever import run_harvest
+from src.LTR_retriever import run_finder
+from src.LTR_retriever import concatenate_outputs
 #from src.LTR_inputs import 
 #from src.LTR_inputs import 
 
