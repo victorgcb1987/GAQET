@@ -10,7 +10,7 @@ def create_outdir(arguments):
         msg = "The output directory {} exists".format(arguments["output"])
     #Otherwise, create outdir and show this other message
     else:
-        outdir.mkdir(parents=True, exists_ok=True)
+        outdir.mkdir(parents=True, exist_ok=True)
         msg = "The output directory {} has been created".format(arguments["output"])
     #Return the proper message
     return{msg}
