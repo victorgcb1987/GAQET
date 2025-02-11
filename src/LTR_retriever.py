@@ -107,7 +107,9 @@ def run_finder(arguments):
 
 def concatenate_outputs(arguments):
     outpath = arguments["output"] / arguments["fasta"].name 
-    cmd = "cat {}.harvest.scn {}.finder.combine.scn > {}.rawLTR.scn".format(outpath)
+    cmd = "cat {}.harvest.scn {}.finder.combine.scn > {}.rawLTR.scn".format(outpath, 
+                                                                            outpath, 
+                                                                            outpath)
 
     #Check if "cat" is already done
     out_file = arguments["output"] / "{}.rawLTR.scn".format(arguments["fasta"].name)
@@ -124,7 +126,7 @@ def concatenate_outputs(arguments):
             msg = "Concatenation of the output files from Harvest and Finder successfully completed."
         #Otherwise, send this error message
         else:
-            msg = "Failed: \n {}".format(run1.stderr)
+            msg = "Failed: \n {}".format(run_.stderr)
         #Return command, final message and output dir path
         return {"command": cmd, "returncode": run_.returncode,
                "out_fpath": arguments["output"]}
