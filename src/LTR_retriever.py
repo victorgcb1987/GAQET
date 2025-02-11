@@ -13,9 +13,11 @@ def create_outdir(arguments):
     #Otherwise, create outdir and show this other message
     else:
         outdir.mkdir(parents=True, exist_ok=True)
-        msg = "The output directory {} has been created".format(arguments["output"])
+        msg = "The output directory {} has been successfully created".format(arguments["output"])
     #Return the proper message
     return{msg}
+
+
 
 
 def run_suffixerator(arguments):
@@ -36,13 +38,15 @@ def run_suffixerator(arguments):
         run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
         #If process has gone well, send this message
         if run_.returncode == 0:
-            msg = "suffixerator ran succesfully"
+            msg = "suffixerator ran successfully"
         #Otherwise, send this error message
         else:
             msg = "suffixerator Failed: \n {}".format(run_.stderr)
         #Return command, final message and output dir path
         return {"command": cmd, "msg": msg,
                 "out_fpath": index, "returncode": run_.returncode}
+
+
 
 
 def run_harvest(arguments):
@@ -73,12 +77,13 @@ def run_harvest(arguments):
                 "out_fpath": out, "returncode": run_.returncode}
 
 
+
+
 def run_finder(arguments):
     #finder command
     cwd = Path(os.getcwd())
-    cmd = "LTR_FINDER_parallel -seq {} -threads {} -harvest_out -size 1000000 -time 300 -output {}".format(arguments["fasta"],
-                                                                                                arguments["threads"],
-                                                                                                arguments["output"])
+    cmd = "LTR_FINDER_parallel -seq {} -threads {} -harvest_out -size 1000000 -time 300".format(arguments["fasta"],
+                                                                                                arguments["threads"])
 
     #Check if FINDER is already done
     out_file = arguments["output"] / "{}.finder.combine.scn".format(arguments["fasta"].name)
@@ -103,6 +108,8 @@ def run_finder(arguments):
         #Return command, final message and output dir path
         return {"command": cmd, "msg": msg,
                 "out_fpath": arguments["output"], "returncode": run_.returncode}
+
+
 
 
 def concatenate_outputs(arguments):
