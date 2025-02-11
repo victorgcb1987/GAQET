@@ -8,8 +8,6 @@ from src.LTR_retriever import run_suffixerator
 from src.LTR_retriever import run_harvest
 from src.LTR_retriever import run_finder
 from src.LTR_retriever import concatenate_outputs
-#from src.LTR_inputs import 
-#from src.LTR_inputs import 
 
 
 #parses command-line arguments
