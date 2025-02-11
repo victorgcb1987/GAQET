@@ -1,6 +1,7 @@
 import os
 import subprocess
 
+from pathlib import Path
 
 def create_outdir(arguments):
     #Output directory (to save LTR_retriever input and output files) path
@@ -34,7 +35,7 @@ def run_suffixerator(arguments):
         run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
         #If process has gone well, send this message
         if run_.returncode == 0:
-            msg = "suffixerator run succesfully"
+            msg = "suffixerator ran successfully"
         #Otherwise, send this error message
         else:
             msg = "suffixerator Failed: \n {}".format(run_.stderr)
