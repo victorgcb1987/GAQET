@@ -28,7 +28,7 @@ def run_suffixerator(arguments):
     if md5.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "suffixerator already done",
-                "out_fpath": index}
+                "out_fpath": index, "returncode": run_.returncode}
     #But if is not done
     else:
         #Run suffixerator
@@ -56,7 +56,7 @@ def run_harvest(arguments):
     if out.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "harvest already done",
-                "out_fpath": out}
+                "out_fpath": out, "returncode": run_.returncode}
     #Otherwise, send this error message
     else:
         #Run harvest
@@ -84,7 +84,7 @@ def run_finder(arguments):
     if out_file.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "harvest already done",
-                "out_fpath": arguments["output"]}
+                "out_fpath": arguments["output"], "returncode": run_.returncode}
     #But if is not done
     else:
         #Change the working directory to the "output" path
@@ -113,7 +113,7 @@ def concatenate_outputs(arguments):
     if out_file.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "Concatenation of the output files from Harvest and Finder successfully completed.",
-                "out_fpath": arguments["output"]}
+                "out_fpath": arguments["output"], "returncode": run_.returncode}
     #But if is not done
     else:
         #Run command
