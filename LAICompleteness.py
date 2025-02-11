@@ -7,7 +7,10 @@ from src.LTR_inputs import create_outdir
 from src.LTR_inputs import run_suffixerator
 from src.LTR_inputs import run_harvest
 from src.LTR_inputs import run_finder
-#from src.LTR_retriever import
+from src.LTR_inputs import concatenate_outputs
+#from src.LTR_inputs import 
+#from src.LTR_inputs import 
+
 
 #parses command-line arguments
 def parse_arguments():
@@ -57,6 +60,8 @@ def main():
     print(outdir)
 
     suffixerator = run_suffixerator(arguments)
+    if suffixerator["returncode"] == 1:
+        raise RuntimeError("Suffixerator has failed")
     print(suffixerator)
     harvest = run_harvest(arguments)
     print(harvest)
@@ -64,7 +69,10 @@ def main():
     finder = run_finder(arguments)
     print(finder)
 
-    #if resuls_harvester["returncode"] != 1 and resuls_finder
+    cat = concatenate_outputs(arguments)
+    print(concatenate_outputs)
+
+    #if resuls_harvester["returncode"] == 0 and resuls_finder
 
 
 if __name__ == "__main__":
