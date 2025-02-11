@@ -97,7 +97,7 @@ def run_finder(arguments):
             msg = "FINDER ran successfully"
         #Otherwise, send this error message
         else:
-            msg = " FINDER Failed: \n {}".format(run1.stderr)
+            msg = " FINDER Failed: \n {}".format(run_.stderr)
         #Restore the original working directory
         os.chdir(cwd)
         #Return command, final message and output dir path
