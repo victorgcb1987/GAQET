@@ -177,6 +177,17 @@ def run_LAI(arguments):
     cmd = "LAI -genome {} -intact {}.pass.list -all {}.out [options]".format(arguments["fasta"].name,
                                                                             arguments["fasta"].name,
                                                                             arguments["fasta"].name)
-    os.chdir(arguments["output"])
-    run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
-    os.chdir(cwd)
+    outfile = arguments["output"] / "{}.LAI.LTR.ava.out".format(arguments["fasta"].name)
+    if outfile.exists():
+        return {"command": cmd, "msg": "LAI already done",
+                "out_fpath": arguments["output"]}
+    else:
+        os.chdir(arguments["output"])
+        run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
+        if run_.returncode == 0:
+            msg = "LAI ran successfully"
+        else:
+            msg = "LAI Failed: \n {}".format(run_.stderr)
+        os.chdir(cwd)
+        return {"command": cmd, "returncode": run_.returncode,
+               "out_fpath": arguments["output"]}
