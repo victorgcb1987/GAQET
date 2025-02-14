@@ -154,6 +154,29 @@ def run_LTR_retriever(arguments):
     cmd = "LTR_retriever -genome {} -inharvest {}.rawLTR.scn -threads {}".format(arguments["fasta"].name,
                                                                                 arguments["fasta"].name,
                                                                                 arguments["threads"])
+    outfile = arguments["output"] / "{}.out".format(arguments["fasta"].name)
+    if outfile.exists():
+        return {"command": cmd, "msg": "LTR_retriever already done",
+                "out_fpath": arguments["output"]}
+    else:
+        os.chdir(arguments["output"])
+        run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
+        if run_.returncode == 0:
+            msg = "LTR_retriever ran successfully"
+        else:
+            msg = "LTR_retirver Failed: \n {}".format(run_.stderr)
+        os.chdir(cwd)
+        return {"command": cmd, "returncode": run_.returncode,
+               "out_fpath": arguments["output"]}
+
+
+
+
+def run_LAI(arguments):
+    cwd = Path(os.getcwd())
+    cmd = "LAI -genome {} -intact {}.pass.list -all {}.out [options]".format(arguments["fasta"].name,
+                                                                            arguments["fasta"].name,
+                                                                            arguments["fasta"].name)
     os.chdir(arguments["output"])
     run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
     os.chdir(cwd)

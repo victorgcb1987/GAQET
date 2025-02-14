@@ -9,6 +9,7 @@ from src.LTR_retriever import run_harvest
 from src.LTR_retriever import run_finder
 from src.LTR_retriever import concatenate_outputs
 from src.LTR_retriever import run_LTR_retriever
+from src.LTR_retriever import run_LAI
 
 
 #parses command-line arguments
@@ -75,7 +76,8 @@ def main():
     LTR = run_LTR_retriever(arguments)
     print(LTR)
 
-    #LAI = 
+    LAI = run_LAI(arguments)
+    print(LAI)
 
 
 if __name__ == "__main__":
