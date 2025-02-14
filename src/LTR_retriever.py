@@ -21,7 +21,7 @@ def create_outdir(arguments):
     else:
         outdir.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(arguments["fasta"], outfile)
-        msg = "The output directory {} has been successfully created".format(arguments["output"])
+        msg = "The output directory {} has been successfully created - Fasta file has been successfully copied to the output directory".format(arguments["output"])
     #Return the proper message
     return{msg}
 
