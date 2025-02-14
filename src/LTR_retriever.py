@@ -13,17 +13,17 @@ def create_outdir(arguments):
     if outdir.exists():
         msg = "The output directory {} exists".format(arguments["output"])
         if  outfile.exists():
-            msg2 = "Fasta file is already in the output directory"
+            msg += " - Fasta file is already in the output directory"
         else:
             shutil.copyfile(arguments["fasta"], outfile)
-            msg2 = "Fasta file has been successfully copied to the output directory"
+            msg += " - Fasta file has been successfully copied to the output directory"
     #Otherwise, create outdir and show this other message
     else:
         outdir.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(arguments["fasta"], outfile)
         msg = "The output directory {} has been successfully created".format(arguments["output"])
     #Return the proper message
-    return{msg, msg2}
+    return{msg}
 
 
 
