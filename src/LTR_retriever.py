@@ -14,7 +14,7 @@ def create_outdir(arguments):
     #Otherwise, create outdir and show this other message
     else:
         outdir.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(arguments["fasta"], outdir)
+        shutil.copyfile(arguments["fasta"], outdir/arguments["fasta"].name)
         msg = "The output directory {} has been successfully created".format(arguments["output"])
     #Return the proper message
     return{msg}
