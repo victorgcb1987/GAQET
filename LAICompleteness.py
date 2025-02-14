@@ -8,6 +8,7 @@ from src.LTR_retriever import run_suffixerator
 from src.LTR_retriever import run_harvest
 from src.LTR_retriever import run_finder
 from src.LTR_retriever import concatenate_outputs
+from src.LTR_retriever import run_LTR_retriever
 
 
 #parses command-line arguments
@@ -70,6 +71,11 @@ def main():
 
     cat = concatenate_outputs(arguments)
     print(concatenate_outputs)
+
+    LTR = run_LTR_retriever(arguments)
+    print(LTR)
+
+    #LAI = 
 
 
 if __name__ == "__main__":
