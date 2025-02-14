@@ -157,4 +157,4 @@ def run_LTR_retriever(arguments):
                                                                                 arguments["threads"])
     os.chdir(arguments["output"])
     run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
-    os.chdir(cmd)
+    os.chdir(cwd)
