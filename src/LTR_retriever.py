@@ -1,5 +1,6 @@
 import os
 import subprocess
+import shutil
 
 from pathlib import Path
 
@@ -13,6 +14,7 @@ def create_outdir(arguments):
     #Otherwise, create outdir and show this other message
     else:
         outdir.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(arguments["fasta"], outdir)
         msg = "The output directory {} has been successfully created".format(arguments["output"])
     #Return the proper message
     return{msg}
