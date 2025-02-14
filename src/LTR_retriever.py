@@ -151,7 +151,7 @@ def concatenate_outputs(arguments):
 
 def run_LTR_retriever(arguments):
     outpath = arguments["output"] / arguments["fasta"].name 
-    cmd = "LTR_retriever -genome {} -inharvest {}.rawLTR.scn -threads {}".format(outpath
+    cmd = "LTR_retriever -genome {} -inharvest {}.rawLTR.scn -threads {}".format(outpath,
                                                                                 outpath,
                                                                                 arguments["threads"])
     run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
