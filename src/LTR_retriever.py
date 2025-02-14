@@ -143,8 +143,8 @@ def concatenate_outputs(arguments):
         else:
             msg = "Failed: \n {}".format(run_.stderr)
         #Return command, final message and output dir path
-        return {"command": cmd, "returncode": run_.returncode,
-               "out_fpath": arguments["output"]}
+        return {"command": cmd, "msg": msg,
+                "out_fpath": arguments["output"], "returncode": run_.returncode}
 
 
 
@@ -166,8 +166,8 @@ def run_LTR_retriever(arguments):
         else:
             msg = "LTR_retirver Failed: \n {}".format(run_.stderr)
         os.chdir(cwd)
-        return {"command": cmd, "returncode": run_.returncode,
-               "out_fpath": arguments["output"]}
+        return {"command": cmd, "msg": msg,
+                "out_fpath": arguments["output"], "returncode": run_.returncode}
 
 
 
@@ -189,5 +189,5 @@ def run_LAI(arguments):
         else:
             msg = "LAI Failed: \n {}".format(run_.stderr)
         os.chdir(cwd)
-        return {"command": cmd, "returncode": run_.returncode,
-               "out_fpath": arguments["output"]}
+        return {"command": cmd, "msg": msg,
+                "out_fpath": arguments["output"], "returncode": run_.returncode}
