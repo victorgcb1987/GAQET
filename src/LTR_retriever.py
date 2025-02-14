@@ -8,16 +8,22 @@ from pathlib import Path
 def create_outdir(arguments):
     #Output directory (to save LTR_retriever input and output files) path
     outdir = arguments["output"]
+    outfile = outdir / arguments["fasta"].name
     #If outdir exists, show this message
     if outdir.exists():
         msg = "The output directory {} exists".format(arguments["output"])
+        if  outfile.exists():
+            msg2 = "Fasta file is already in the output directory"
+        else:
+            shutil.copyfile(arguments["fasta"], outfile)
+            msg2 = "Fasta file has been successfully copied to the output directory"
     #Otherwise, create outdir and show this other message
     else:
         outdir.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(arguments["fasta"], outdir/arguments["fasta"].name)
+        shutil.copyfile(arguments["fasta"], outfile)
         msg = "The output directory {} has been successfully created".format(arguments["output"])
     #Return the proper message
-    return{msg}
+    return{msg, msg2}
 
 
 
