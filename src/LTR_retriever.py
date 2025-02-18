@@ -10,19 +10,26 @@ def create_outdir(arguments):
     outdir = arguments["output"]
     outfile = outdir / arguments["fasta"].name
     #If outdir exists, show this message
-    if outdir.exists():
-        msg = "The output directory {} exists".format(arguments["output"])
-        if  outfile.exists():
-            msg += " - Fasta file is already in the output directory"
-        else:
-            shutil.copyfile(arguments["fasta"], outfile)
-            msg += " - Fasta file has been successfully copied to the output directory"
-    #Otherwise, create outdir and show this other message
-    else:
-        outdir.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(arguments["fasta"], outfile)
-        msg = "The output directory {} has been successfully created - Fasta file has been successfully copied to the output directory".format(arguments["output"])
-    #Return the proper message
+    # if outdir.exists():
+    #     msg = "The output directory {} exists".format(arguments["output"])
+    #     if  outfile.exists():
+    #         msg += " - Fasta file is already in the output directory"
+    #     else:
+    #         shutil.copyfile(arguments["fasta"], outfile)
+    #         msg += " - Fasta file has been successfully copied to the output directory"
+    # #Otherwise, create outdir and show this other message
+    # else:
+    #     outdir.mkdir(parents=True, exist_ok=True)
+    #     shutil.copyfile(arguments["fasta"], outfile)
+    #     msg = "The output directory {} has been successfully created - Fasta file has been successfully copied to the output directory".format(arguments["output"])
+    # #Return the proper message
+    if not outdir.exists():
+        outdir.mkdir(parents=True)
+    if not out_file.exists():
+        cmd = f"ln -s {str(arguments["fasta"]) {str(out_file)}}"
+        cmd = run(shell=True)
+    msg = "blao"
+
     return{msg}
 
 
@@ -164,7 +171,7 @@ def run_LTR_retriever(arguments):
         if run_.returncode == 0:
             msg = "LTR_retriever ran successfully"
         else:
-            msg = "LTR_retirver Failed: \n {}".format(run_.stderr)
+            msg = "LTR_retriever Failed: \n {}".format(run_.stderr)
         os.chdir(cwd)
         return {"command": cmd, "msg": msg,
                 "out_fpath": arguments["output"], "returncode": run_.returncode}
@@ -174,7 +181,7 @@ def run_LTR_retriever(arguments):
 
 def run_LAI(arguments):
     cwd = Path(os.getcwd())
-    cmd = "LAI -genome {} -intact {}.pass.list -all {}.out [options]".format(arguments["fasta"].name,
+    cmd = "LAI -genome {} -intact {}.pass.list -all {}.out".format(arguments["fasta"].name,
                                                                             arguments["fasta"].name,
                                                                             arguments["fasta"].name)
     outfile = arguments["output"] / "{}.LAI.LTR.ava.out".format(arguments["fasta"].name)
