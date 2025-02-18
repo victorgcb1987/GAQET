@@ -26,7 +26,7 @@ def create_outdir(arguments):
     if not outdir.exists():
         outdir.mkdir(parents=True)
     if not outfile.exists():
-        cmd = f"ln -s {str(arguments["fasta"])} {str(out_file)}"
+        cmd = f"ln -s {str(arguments["fasta"])} {str(outfile)}"
         cmd = run(shell=True)
     msg = "blao"
 
