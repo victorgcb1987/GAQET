@@ -8,7 +8,7 @@ def run_stringtie(arguments):
                                                 arguments["bam"])
 
     outfile = arguments["output"] / "{}.gtf".format(arguments["bam"].name)
-    if outfile.exit():
+    if outfile.exists():
         return {"command": cmd, "msg": "stringtie already done",
                 "out_fpath": outdir}
     else:
@@ -31,7 +31,7 @@ def run_gffcompare(arguments):
                                             output_name)
     
     outfile = arguments["output"] / "{}.stats".format(arguments["bam"].name)
-    if output.exit():
+    if output.exists():
         return {"command": cmd, "msg": "gffcompare already done",
                 "out_fpath": outdir}
     else:
