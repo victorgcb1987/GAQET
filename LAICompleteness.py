@@ -3,13 +3,8 @@ import sys
 
 from pathlib import Path
 
-from src.LTR_retriever import create_outdir
-from src.LTR_retriever import run_suffixerator
-from src.LTR_retriever import run_harvest
-from src.LTR_retriever import run_finder
-from src.LTR_retriever import concatenate_outputs
-from src.LTR_retriever import run_LTR_retriever
-from src.LTR_retriever import run_LAI
+
+import src.LTR_retriever as LTR
 
 
 #parses command-line arguments
@@ -56,27 +51,27 @@ def get_arguments():
 def main():
     arguments = get_arguments()
     #function to create the output directory if this does not exist
-    outdir = create_outdir(arguments)
+    outdir =  LTR.create_outdir(arguments)
     print(outdir)
 
-    suffixerator = run_suffixerator(arguments)
+    suffixerator =  LTR.run_suffixerator(arguments)
     if "returncode" in suffixerator:
         if suffixerator["returncode"] == 1:
             raise RuntimeError("Suffixerator has failed")
     print(suffixerator)
-    harvest = run_harvest(arguments)
+    harvest = LTR.run_harvest(arguments)
     print(harvest)
     
-    finder = run_finder(arguments)
+    finder = LTR.run_finder(arguments)
     print(finder)
 
-    cat = concatenate_outputs(arguments)
+    cat = LTR.concatenate_outputs(arguments)
     print(concatenate_outputs)
 
-    LTR = run_LTR_retriever(arguments)
+    LTR = LTR.run_LTR_retriever(arguments)
     print(LTR)
 
-    LAI = run_LAI(arguments)
+    LAI = LTR.LTRrun_LAI(arguments)
     print(LAI)
 
 
