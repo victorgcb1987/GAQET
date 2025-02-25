@@ -48,7 +48,6 @@ def run_gffcompare(arguments):
 
 def calculate_annotation_scores(arguments):
     statsfile = arguments["output"] / "{}.stats".format(arguments["bam"].name)
-    #creating a dictionary for all bam files
     annotation_scores = {}
     f1_checks = ["Transcript level:", "Locus level:"]
     number_check = ["Matching transcripts:", "Matching loci:"]

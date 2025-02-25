@@ -37,6 +37,7 @@ def get_arguments():
     parser = parse_arguments()
     return {"gff": Path(parser.gff),
             "bam": Path(parser.bam),
+            "threads": parser.threads,
             "output": Path(parser.output)}
 
 
