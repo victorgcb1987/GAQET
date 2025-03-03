@@ -1,0 +1,2 @@
+name    ref_assembly    ref_annotation  annotation  alignments
+ERR3333390  /data/users/sgarjua/tfg/data/ncbi_dataset/data/GCF_000001735.4/TAIR10.fasta /data/users/sgarjua/tfg/data/arabidopsis_rnaseq_bams/ERR3333390.STAR.TAIR10Aligned.sortedByCoord.gtf    /data/users/sgarjua/tfg/data/arabidopsis_rnaseq_bams/ERR3333390.STAR.TAIR10Aligned.sortedByCoord.bam

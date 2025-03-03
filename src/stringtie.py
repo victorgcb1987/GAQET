@@ -1,13 +1,15 @@
 import subprocess
 
 def run_stringtie(arguments):
-    outdir = arguments["output"]
-    output_name = outdir / arguments["bam"].name
+    outdir = arguments["output"] / "RNASeqCheck"
+    if not outdir.exists()
+        outdir.mkdir(parents=True, exist_ok=True)
+    output_name = outdir / arguments["alignments"].name
     cmd = "stringtie -o {}.gtf -p {} {}".format(output_name,
                                                 arguments["threads"],
-                                                arguments["bam"])
+                                                arguments["alignments"])
 
-    outfile = arguments["output"] / "{}.gtf".format(arguments["bam"].name)
+    outfile = arguments["output"] / "{}.gtf".format(arguments["alignments"].name)
     if outfile.exists():
         return {"command": cmd, "msg": "stringtie already done",
                 "out_fpath": outdir}
@@ -23,14 +25,14 @@ def run_stringtie(arguments):
 
 
 def run_gffcompare(arguments):
-    gtffile = arguments["output"] / "{}.gtf".format(arguments["bam"].name)
-    outdir = arguments["output"]
-    output_name = outdir / arguments["bam"].name
-    cmd = "gffcompare -r {} {} -o {}".format(arguments["gff"],
+    outdir = arguments["output"] / "RNASeqCheck"
+    gtffile = outdir / "{}.gtf".format(arguments["alignments"].stem)
+    output_name = outdir / arguments["alignments"].stem
+    cmd = "gffcompare -r {} {} -o {}.stats".format(arguments["reference_annotation"],
                                             gtffile,
                                             output_name)
     
-    outfile = arguments["output"] / "{}.stats".format(arguments["bam"].name)
+    outfile = arguments["output"] / "{}.stats".format(arguments["alignments"].name)
     if outfile.exists():
         return {"command": cmd, "msg": "gffcompare already done",
                 "out_fpath": outdir}
@@ -45,9 +47,8 @@ def run_gffcompare(arguments):
 
 
 
-
 def calculate_annotation_scores(arguments):
-    statsfile = arguments["output"] / "{}.stats".format(arguments["bam"].name)
+    statsfile = arguments["output"] / "RNASeqCheck"/ "{}.stats".format(arguments["alignments"].name)
     annotation_scores = {}
     f1_checks = ["Transcript level:", "Locus level:"]
     number_check = ["Matching transcripts:", "Matching loci:"]

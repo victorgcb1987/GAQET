@@ -2,12 +2,12 @@ import subprocess
 
 def run_agat(arguments):
     #Creating output dir
-    output_dir = arguments["output"] / "RunAgat" 
-    output_dir.mkdir(parents=True, exist_ok=True)
-    out_fpath = output_dir / "ResultAgat.txt"
+    outdir = arguments["output"] / "RunAgat" 
+    outdir.mkdir(parents=True, exist_ok=True)
+    out_fpath = outdir / "ResultAgat.txt"
 
     #Creating command to run AGAT as a list
-    cmd = ["agat_sp_statistics.pl", "--gff", "{}".format(arguments["gff"]), "-o", "{}".format(out_fpath)]
+    cmd = ["agat_sp_statistics.pl", "--gff", "{}".format(arguments["annotation"]), "-o", "{}".format(out_fpath)]
 
     #Adding "distribution" to command if it has been selected
     if arguments["distribution"]:
