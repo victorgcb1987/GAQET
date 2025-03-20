@@ -24,7 +24,7 @@ def parse_arguments():
                         help=help_threads, default=1)
 
     help_output = "(Required) Output path"
-    parser.add_argument("--output_dir", "-o", type=str,
+    parser.add_argument("--output", "-o", type=str,
                         help=help_output, required=True)
     
     if len(sys.argv)==1:
