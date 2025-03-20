@@ -13,7 +13,7 @@ def create_outdir(arguments):
     if not outdir.exists():
         outdir.mkdir(parents=True)
     if not outfile.exists():
-        cmd = f"ln -s {str(arguments["fasta"])} {str(outfile)}"
+        cmd = f"ln -s {str(arguments['fasta'])} {str(outfile)}"
         run_ = subprocess.run(cmd, shell=True)
     msg = "The output directory has been successfully created"
 
