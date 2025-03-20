@@ -2,7 +2,7 @@ import subprocess
 
 def run_stringtie(arguments):
     outdir = arguments["output"] / "RNASeqCheck"
-    if not outdir.exists()
+    if not outdir.exists():
         outdir.mkdir(parents=True, exist_ok=True)
     output_name = outdir / arguments["alignments"].name
     cmd = "stringtie -o {}.gtf -p {} {}".format(output_name,
