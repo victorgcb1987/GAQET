@@ -4,7 +4,7 @@ import subprocess
 def run_busco(arguments):
     #Creating output dir
     outdir = arguments["output"] / "BUSCOCompleteness" / "RunBusco_{}".format(arguments["lineage"])
-    if not outdir.exists()
+    if not outdir.exists():
         outdir.mkdir(parents=True, exist_ok=True)
     #Command to run BUSCO
     cmd = "busco -i {} -c {} -l {} -m {} -o {}".format(arguments["input_file"],
