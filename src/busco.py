@@ -3,14 +3,12 @@ import subprocess
 
 def run_busco(arguments):
     #Creating output dir
-    outdir = arguments["output"] / "BUSCOCompleteness" / "RunBusco_{}".format(arguments["lineage"])
+    outdir = arguments["output"] / "BUSCOCompleteness"
     if not outdir.exists():
         outdir.mkdir(parents=True, exist_ok=True)
     #Command to run BUSCO
-    cmd = "busco -i {} -c {} -l {} -m {} -o {}".format(arguments["input_file"],
+    cmd = "busco -i {} -c {} -o {}".format(arguments["input"],
                                                            arguments["threads"],
-                                                           arguments["lineage"],
-                                                           arguments["mode"],
                                                            outdir)
     #Check if BUSCO is already done
     if outdir.exists():
