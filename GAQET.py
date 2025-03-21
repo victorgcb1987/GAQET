@@ -56,8 +56,9 @@ def main():
     stats = {}                                          #diccionario para guardar los resultados de cada modulo por cada especie
     for name, values in arguments["input"].items():     #aqui no se deberia abrir samples????
         stats[name] = {}
-        name_dir = out_dir/name
+        name_dir = out_dir / name
         values["output"] = name_dir
+        values["threads"] = arguments["threads"]
         if not name_dir.exists():
             name_dir.mkdir(parents=True, exist_ok=True)
 
