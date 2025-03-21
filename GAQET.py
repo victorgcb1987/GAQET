@@ -5,8 +5,8 @@ from csv import DictReader
 from pathlib import Path
 
 from src.agat import run_agat
-from src.busco import run_busco, run_gffread, run_harvest, run_finder, concatenate_outputs, run_LTR_retriever, run_LAI
-from src.LTR_retriever import create_outdir, run_suffixerator,
+from src.busco import run_busco, run_gffread
+from src.LTR_retriever import create_outdir, run_suffixerator, run_harvest, run_finder, concatenate_outputs, run_LTR_retriever, run_LAI
 from src.stringtie import run_stringtie, run_gffcompare, calculate_annotation_scores
 
 
