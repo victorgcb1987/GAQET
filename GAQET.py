@@ -65,11 +65,12 @@ def main():
         agat_statistics = run_agat(values)
         stats[name]["agat_statistics"] = agat_statistics
         print(agat_statistics)
-        exit()
 
-        gffread = run_gffread(values)
+        gffread_results = run_gffread(values)
         busco_results = run_busco(values)
         stats[name]["busco_results"] = busco_results
+        print(gffread_results)
+        print(busco_results)
 
         outdir =  LTR.create_outdir(values)
         suffixerator =  LTR.run_suffixerator(values)

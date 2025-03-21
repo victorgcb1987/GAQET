@@ -37,7 +37,7 @@ def run_agat(arguments):
         #Is process has gone well
         print(run_.returncode)
         if run_.returncode == 0:
-            msg = "AGAT run succesfully"
+            msg = "AGAT run successfully"
         #But if not
         else:
             msg = "AGAT Failed: \n {}".format(run_.stdout)
