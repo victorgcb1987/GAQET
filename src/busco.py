@@ -34,16 +34,17 @@ def run_gffread(arguments):
 def run_busco(arguments):
     #Creating output dir
     outdir = arguments["output"] / "BUSCOCompleteness"
+    cmd = "busco -i {} -c {} -o {} --mode prot -l {}".format(arguments["input"],
+                                                             arguments["threads"],
+                                                              outdir,
+                                                            arguments["lineage"])
     if outdir.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "BUSCO already done",
                 "out_fpath": outdir}
     else: 
     #Command to run BUSCO
-        cmd = "busco -i {} -c {} -o {} --mode prot -l {}".format(arguments["input"],
-                                                                 arguments["threads"],
-                                                                 outdir,
-                                                                 arguments["lineage"])
+        
         #Run BUSCO with command
         run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
         #Is process has gone well
