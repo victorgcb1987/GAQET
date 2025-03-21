@@ -29,7 +29,7 @@ def run_suffixerator(arguments):
     cmd = "gt suffixerator -db {} -indexname {} -tis -suf -lcp -des -ssp -sds -dna".format(arguments["ref_assembly"], index)
 
     #Check if suffixerator is already done
-    md5 = arguments["output"] / "{}.md5".format(arguments["ref_assembly"].name)
+    md5 = arguments["output"] / "{}.md5".format(Path(arguments["ref_assembly"]).name)
     if md5.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "suffixerator already done",
@@ -55,7 +55,7 @@ def run_harvest(arguments):
     #taking suffixerator output dir to use it as input
     index = arguments["output"] / Path(arguments["ref_assembly"]).name
     #creating output: output path + file .harvest.scn /w ref_assembly file name
-    out = arguments["output"] / "{}.harvest.scn".format(arguments["ref_assembly"].name)
+    out = arguments["output"] / "{}.harvest.scn".format(Path(arguments["ref_assembly"]).name)
     #harvest command
     cmd = "gt ltrharvest -index {} -minlenltr 100 -maxlenltr 7000 -mintsd 4 -maxtsd 6 -motif TGCA -motifmis 1 -similar 85 -vic 10 -seed 20 -seqids yes > {}".format(index, out)
 
@@ -88,7 +88,7 @@ def run_finder(arguments):
                                                                                                 arguments["threads"])
 
     #Check if FINDER is already done
-    out_file = arguments["output"] / "{}.finder.combine.scn".format(arguments["ref_assembly"].name)
+    out_file = arguments["output"] / "{}.finder.combine.scn".format(Path(arguments["ref_assembly"]).name)
     if out_file.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "harvest already done",
@@ -121,7 +121,7 @@ def concatenate_outputs(arguments):
                                                                             outpath)
 
     #Check if "cat" is already done
-    out_file = arguments["output"] / "{}.rawLTR.scn".format(arguments["ref_assembly"].name)
+    out_file = arguments["output"] / "{}.rawLTR.scn".format(Path(arguments["ref_assembly"]).name)
     if out_file.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "Concatenation of the output files from Harvest and Finder successfully completed.",
@@ -145,10 +145,10 @@ def concatenate_outputs(arguments):
 
 def run_LTR_retriever(arguments):
     cwd = Path(os.getcwd())
-    cmd = "LTR_retriever -genome {} -inharvest {}.rawLTR.scn -threads {}".format(arguments["ref_assembly"].name,
-                                                                                arguments["ref_assembly"].name,
+    cmd = "LTR_retriever -genome {} -inharvest {}.rawLTR.scn -threads {}".format(Path(arguments["ref_assembly"]).name,
+                                                                                Path(arguments["ref_assembly"]).name,
                                                                                 arguments["threads"])
-    outfile = arguments["output"] / "{}.out".format(arguments["ref_assembly"].name)
+    outfile = arguments["output"] / "{}.out".format(Path(arguments["ref_assembly"]).name)
     if outfile.exists():
         return {"command": cmd, "msg": "LTR_retriever already done",
                 "out_fpath": arguments["output"]}
