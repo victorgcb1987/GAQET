@@ -150,6 +150,7 @@ def run_LTR_retriever(arguments):
                                                                                 Path(arguments["ref_assembly"]).name,
                                                                                 arguments["threads"])
     outfile = arguments["LAI_dir"] / "{}.out".format(Path(arguments["ref_assembly"]).name)
+    print(out_file)
     if outfile.exists():
         return {"command": cmd, "msg": "LTR_retriever already done",
                 "LAI_dir": arguments["LAI_dir"]}
