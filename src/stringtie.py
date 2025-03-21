@@ -1,15 +1,18 @@
 import subprocess
 
+from pathlib import Path
+
+
 def run_stringtie(arguments):
     outdir = arguments["output"] / "RNASeqCheck"
     if not outdir.exists():
         outdir.mkdir(parents=True, exist_ok=True)
-    output_name = outdir / arguments["alignments"].name
+    output_name = outdir / Path(arguments["alignments"]).name
     cmd = "stringtie -o {}.gtf -p {} {}".format(output_name,
                                                 arguments["threads"],
                                                 arguments["alignments"])
 
-    outfile = arguments["output"] / "{}.gtf".format(arguments["alignments"].name)
+    outfile = arguments["output"] / "{}.gtf".format(Path(arguments["alignments"]).name)
     if outfile.exists():
         return {"command": cmd, "msg": "stringtie already done",
                 "out_fpath": outdir}
@@ -26,13 +29,13 @@ def run_stringtie(arguments):
 
 def run_gffcompare(arguments):
     outdir = arguments["output"] / "RNASeqCheck"
-    gtffile = outdir / "{}.gtf".format(arguments["alignments"].stem)
+    gtffile = outdir / "{}.gtf".format(Path(arguments["alignments"]).stem)
     output_name = outdir / arguments["alignments"].stem
     cmd = "gffcompare -r {} {} -o {}.stats".format(arguments["ref_annotation"],
                                             gtffile,
                                             output_name)
     
-    outfile = arguments["output"] / "{}.stats".format(arguments["alignments"].name)
+    outfile = arguments["output"] / "{}.stats".format(Path(arguments["alignments"]).name)
     if outfile.exists():
         return {"command": cmd, "msg": "gffcompare already done",
                 "out_fpath": outdir}
@@ -48,7 +51,7 @@ def run_gffcompare(arguments):
 
 
 def calculate_annotation_scores(arguments):
-    statsfile = arguments["output"] / "RNASeqCheck"/ "{}.stats".format(arguments["alignments"].name)
+    statsfile = arguments["output"] / "RNASeqCheck"/ "{}.stats".format(Path(arguments["alignments"]).name)
     annotation_scores = {}
     f1_checks = ["Transcript level:", "Locus level:"]
     number_check = ["Matching transcripts:", "Matching loci:"]
