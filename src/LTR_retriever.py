@@ -168,10 +168,10 @@ def run_LTR_retriever(arguments):
 
 def run_LAI(arguments):
     cwd = Path(os.getcwd())
-    cmd = "LAI -genome {} -intact {}.pass.list -all {}.out".format(arguments["ref_assembly"].name,
-                                                                            arguments["ref_assembly"].name,
-                                                                            arguments["ref_assembly"].name)
-    outfile = arguments["output"] / "{}.LAI.LTR.ava.out".format(arguments["ref_assembly"].name)
+    cmd = "LAI -genome {} -intact {}.pass.list -all {}.out".format(Path(arguments["ref_assembly"]).name,
+                                                                            Path(arguments["ref_assembly"]).name,
+                                                                            Path(arguments["ref_assembly"]).name)
+    outfile = arguments["output"] / "{}.LAI.LTR.ava.out".format(Path(arguments["ref_assembly"]).name)
     if outfile.exists():
         return {"command": cmd, "msg": "LAI already done",
                 "out_fpath": arguments["output"]}
