@@ -24,7 +24,7 @@ def create_outdir(arguments):
 
 def run_suffixerator(arguments):
     #output dir path + name for output files
-    index = arguments["output"] / Path(arguments["ref_assembly"].name)
+    index = arguments["output"] / Path(arguments["ref_assembly"]).name
     #suffixerator command
     cmd = "gt suffixerator -db {} -indexname {} -tis -suf -lcp -des -ssp -sds -dna".format(arguments["ref_assembly"], index)
 
@@ -53,7 +53,7 @@ def run_suffixerator(arguments):
 
 def run_harvest(arguments):
     #taking suffixerator output dir to use it as input
-    index = arguments["output"] / Path(arguments["ref_assembly"].name)
+    index = arguments["output"] / Path(arguments["ref_assembly"]).name
     #creating output: output path + file .harvest.scn /w ref_assembly file name
     out = arguments["output"] / "{}.harvest.scn".format(arguments["ref_assembly"].name)
     #harvest command
@@ -115,7 +115,7 @@ def run_finder(arguments):
 
 
 def concatenate_outputs(arguments):
-    outpath = arguments["output"] / Path(arguments["ref_assembly"].name)
+    outpath = arguments["output"] / Path(arguments["ref_assembly"]).name
     cmd = "cat {}.harvest.scn {}.finder.combine.scn > {}.rawLTR.scn".format(outpath, 
                                                                             outpath, 
                                                                             outpath)
