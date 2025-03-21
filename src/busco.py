@@ -2,7 +2,7 @@ import subprocess
 from pathlib import Path
 
 def run_gffread(arguments):
-    outdir = arguments["output"] / "BUSCOCompleteness"
+    outdir = arguments["output"] / "input_sequences"
     if not outdir.exists():
         outdir.mkdir(parents=True, exist_ok=True)
     outfile = outdir / "{}.proteins.fasta".format(Path(arguments["ref_assembly"]).stem)
@@ -37,9 +37,10 @@ def run_busco(arguments):
     if not outdir.exists():
         outdir.mkdir(parents=True, exist_ok=True)
     #Command to run BUSCO
-    cmd = "busco -i {} -c {} -o {}".format(arguments["input"],
+    cmd = "busco -i {} -c {} -o {} --mode prot -l {}".format(arguments["input"],
                                                     arguments["threads"],
-                                                    outdir)
+                                                    outdir,
+                                                    arguments["lineage"])
     #Check if BUSCO is already done
     if outdir.exists():
         #Show a message if it is
