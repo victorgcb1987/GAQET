@@ -3,18 +3,18 @@ from pathlib import Path
 
 def run_gffread(arguments):
     #gffread -y proteins.fasta -g ncbi_dataset/data/GCF_000001735.4/GCF_000001735.4_TAIR10.1_genomic.fna genomic_clean.gff
-    out_dir = arguments["output"] / "BUSCOCompleteness"
-    out_file = out_dir / "{}.proteins.fasta".format(Path(arguments["ref_assembly"]).stem)
+    outdir = arguments["output"] / "BUSCOCompleteness"
+    outfile = outdir / "{}.proteins.fasta".format(Path(arguments["ref_assembly"]).stem)
     cmd = "gffread -y {} -g {} {}".format(outfile, 
                                             arguments["ref_assembly"],
                                             arguments["annotation"])
 
     #Add input sequences file for BUSCO
-    arguments["input"] = out_file
-    if out_file.exists():
+    arguments["input"] = outfile
+    if outfile.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "Extract sequences already done",
-                "out_fpath": out_file}
+                "out_fpath": outfile}
     #But if is not done
     else:
         #Run BUSCO with command
@@ -27,7 +27,7 @@ def run_gffread(arguments):
             msg = "GFFread Failed: \n {}".format(run_.stderr)
         #Return command, final message and output dir path
         return {"command": cmd, "msg": msg,
-                "out_fpath": out_file, "returncode": run_.returncode}
+                "out_fpath": outfile, "returncode": run_.returncode}
 
 
 def run_busco(arguments):
