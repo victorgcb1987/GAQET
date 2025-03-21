@@ -73,7 +73,7 @@ def main():
         stats[name]["busco_results"] = busco_results
 
         LAI_out_dir =  create_outdir(values)
-        print(outdir)
+        print(LAI_out_dir)
         values["LAI_dir"] = LAI_out_dir["out_fpath"]
         suffixerator =  run_suffixerator(values)
         if "returncode" in suffixerator:
