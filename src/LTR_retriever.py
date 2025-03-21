@@ -15,7 +15,7 @@ def create_outdir(arguments):
     if not outfile.exists():
         cmd = f"ln -s {str(arguments['ref_assembly'])} {str(outfile)}"
         run_ = subprocess.run(cmd, shell=True)
-    msg = "The output directory has been successfully created"
+    msg = "The output directory for LAICompleteness has been successfully created"
 
     return{msg}
 
