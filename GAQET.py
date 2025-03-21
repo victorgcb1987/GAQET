@@ -5,7 +5,7 @@ from csv import DictReader
 from pathlib import Path
 
 from src.agat import run_agat
-from src.busco import run_busco
+from src.busco import run_busco, run_gffread
 import src.LTR_retriever as LTR
 from src.stringtie import run_stringtie, run_gffcompare, calculate_annotation_scores
 
@@ -64,6 +64,7 @@ def main():
         agat_statistics = run_agat(values)
         stats[name]["agat_statistics"] = agat_statistics
 
+        gffread = run_gffread(values)
         busco_results = run_busco(values)
         stats[name]["busco_results"] = busco_results
 
