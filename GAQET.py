@@ -5,8 +5,8 @@ from csv import DictReader
 from pathlib import Path
 
 from src.agat import run_agat
-from src.busco import run_busco, run_gffread, run_harvest, run_finder, concatenate_outputs, run_LTR_retriever
-from LTR_retriever import create_outdir, run_suffixerator,
+from src.busco import run_busco, run_gffread, run_harvest, run_finder, concatenate_outputs, run_LTR_retriever, run_LAI
+from src.LTR_retriever import create_outdir, run_suffixerator,
 from src.stringtie import run_stringtie, run_gffcompare, calculate_annotation_scores
 
 
@@ -72,16 +72,16 @@ def main():
         print(gffread_results)
         print(busco_results)
 
-        outdir =  LTR.create_outdir(values)
-        suffixerator =  LTR.run_suffixerator(values)
+        outdir =  create_outdir(values)
+        suffixerator =  run_suffixerator(values)
         if "returncode" in suffixerator:
             if suffixerator["returncode"] == 1:
                 raise RuntimeError("Suffixerator has failed")
-        harvest = LTR.run_harvest(values)
-        finder = LTR.run_finder(values)
-        cat = LTR.concatenate_outputs(values)
-        LTR = LTR.run_LTR_retriever(values)
-        LAI = LTR.LTRrun_LAI(values)
+        harvest = run_harvest(values)
+        finder = run_finder(values)
+        cat = concatenate_outputs(values)
+        LTR = run_LTR_retriever(values)
+        LAI = run_LAI(values)
         stats[name]["LAI"] = LAI
 
         stringtie = run_stringtie(values)
