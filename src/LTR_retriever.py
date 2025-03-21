@@ -8,7 +8,7 @@ from pathlib import Path
 def create_outdir(arguments):
     #Output directory (to save LTR_retriever input and output files) path
     outdir = arguments["output"] / "LAICompleteness"
-    outfile = outdir / Path(arguments["ref_assembly"].name)
+    outfile = outdir / Path(arguments["ref_assembly"]).name
 
     if not outdir.exists():
         outdir.mkdir(parents=True)
