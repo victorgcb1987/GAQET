@@ -17,19 +17,19 @@ def create_outdir(arguments):
         run_ = subprocess.run(cmd, shell=True)
     msg = "The output directory for LAICompleteness has been successfully created"
 
-    return{msg}
+    return {"msg": msg, "out_fpath": outdir}
 
 
 
 
 def run_suffixerator(arguments):
     #output dir path + name for output files
-    index = arguments["output"] / Path(arguments["ref_assembly"]).name
+    index = arguments["out_fpath"] / Path(arguments["ref_assembly"]).name
     #suffixerator command
     cmd = "gt suffixerator -db {} -indexname {} -tis -suf -lcp -des -ssp -sds -dna".format(arguments["ref_assembly"], index)
 
     #Check if suffixerator is already done
-    md5 = arguments["output"] / "{}.md5".format(Path(arguments["ref_assembly"]).name)
+    md5 = arguments["out_fpath"] / "{}.md5".format(Path(arguments["ref_assembly"]).name)
     if md5.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "suffixerator already done",
@@ -53,9 +53,9 @@ def run_suffixerator(arguments):
 
 def run_harvest(arguments):
     #taking suffixerator output dir to use it as input
-    index = arguments["output"] / Path(arguments["ref_assembly"]).name
+    index = arguments["out_fpath"] / Path(arguments["ref_assembly"]).name
     #creating output: output path + file .harvest.scn /w ref_assembly file name
-    out = arguments["output"] / "{}.harvest.scn".format(Path(arguments["ref_assembly"]).name)
+    out = arguments["out_fpath"] / "{}.harvest.scn".format(Path(arguments["ref_assembly"]).name)
     #harvest command
     cmd = "gt ltrharvest -index {} -minlenltr 100 -maxlenltr 7000 -mintsd 4 -maxtsd 6 -motif TGCA -motifmis 1 -similar 85 -vic 10 -seed 20 -seqids yes > {}".format(index, out)
 
@@ -88,15 +88,15 @@ def run_finder(arguments):
                                                                                                 arguments["threads"])
 
     #Check if FINDER is already done
-    out_file = arguments["output"] / "{}.finder.combine.scn".format(Path(arguments["ref_assembly"]).name)
+    out_file = arguments["out_fpath"] / "{}.finder.combine.scn".format(Path(arguments["ref_assembly"]).name)
     if out_file.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "harvest already done",
-                "out_fpath": arguments["output"]}
+                "out_fpath": arguments["out_fpath"]}
     #But if is not done
     else:
         #Change the working directory to the "output" path
-        os.chdir(arguments["output"])
+        os.chdir(arguments["out_fpath"])
         #Run finder
         run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
         #If process has gone well, send this message
@@ -109,23 +109,23 @@ def run_finder(arguments):
         os.chdir(cwd)
         #Return command, final message and output dir path
         return {"command": cmd, "msg": msg,
-                "out_fpath": arguments["output"], "returncode": run_.returncode}
+                "out_fpath": arguments["out_fpath"], "returncode": run_.returncode}
 
 
 
 
 def concatenate_outputs(arguments):
-    outpath = arguments["output"] / Path(arguments["ref_assembly"]).name
+    outpath = arguments["out_fpath"] / Path(arguments["ref_assembly"]).name
     cmd = "cat {}.harvest.scn {}.finder.combine.scn > {}.rawLTR.scn".format(outpath, 
                                                                             outpath, 
                                                                             outpath)
 
     #Check if "cat" is already done
-    out_file = arguments["output"] / "{}.rawLTR.scn".format(Path(arguments["ref_assembly"]).name)
+    out_file = arguments["out_fpath"] / "{}.rawLTR.scn".format(Path(arguments["ref_assembly"]).name)
     if out_file.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "Concatenation of the output files from Harvest and Finder successfully completed.",
-                "out_fpath": arguments["output"]}
+                "out_fpath": arguments["out_fpath"]}
     #But if is not done
     else:
         #Run command
@@ -138,7 +138,7 @@ def concatenate_outputs(arguments):
             msg = "Failed: \n {}".format(run_.stderr)
         #Return command, final message and output dir path
         return {"command": cmd, "msg": msg,
-                "out_fpath": arguments["output"], "returncode": run_.returncode}
+                "out_fpath": arguments["out_fpath"], "returncode": run_.returncode}
 
 
 
@@ -148,12 +148,12 @@ def run_LTR_retriever(arguments):
     cmd = "LTR_retriever -genome {} -inharvest {}.rawLTR.scn -threads {}".format(Path(arguments["ref_assembly"]).name,
                                                                                 Path(arguments["ref_assembly"]).name,
                                                                                 arguments["threads"])
-    outfile = arguments["output"] / "{}.out".format(Path(arguments["ref_assembly"]).name)
+    outfile = arguments["out_fpath"] / "{}.out".format(Path(arguments["ref_assembly"]).name)
     if outfile.exists():
         return {"command": cmd, "msg": "LTR_retriever already done",
-                "out_fpath": arguments["output"]}
+                "out_fpath": arguments["out_fpath"]}
     else:
-        os.chdir(arguments["output"])
+        os.chdir(arguments["out_fpath"])
         run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
         if run_.returncode == 0:
             msg = "LTR_retriever ran successfully"
@@ -161,7 +161,7 @@ def run_LTR_retriever(arguments):
             msg = "LTR_retriever Failed: \n {}".format(run_.stderr)
         os.chdir(cwd)
         return {"command": cmd, "msg": msg,
-                "out_fpath": arguments["output"], "returncode": run_.returncode}
+                "out_fpath": arguments["out_fpath"], "returncode": run_.returncode}
 
 
 
@@ -171,12 +171,12 @@ def run_LAI(arguments):
     cmd = "LAI -genome {} -intact {}.pass.list -all {}.out".format(Path(arguments["ref_assembly"]).name,
                                                                             Path(arguments["ref_assembly"]).name,
                                                                             Path(arguments["ref_assembly"]).name)
-    outfile = arguments["output"] / "{}.LAI.LTR.ava.out".format(Path(arguments["ref_assembly"]).name)
+    outfile = arguments["out_fpath"] / "{}.LAI.LTR.ava.out".format(Path(arguments["ref_assembly"]).name)
     if outfile.exists():
         return {"command": cmd, "msg": "LAI already done",
-                "out_fpath": arguments["output"]}
+                "out_fpath": arguments["out_fpath"]}
     else:
-        os.chdir(arguments["output"])
+        os.chdir(arguments["out_fpath"])
         run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
         if run_.returncode == 0:
             msg = "LAI ran successfully"
@@ -184,4 +184,4 @@ def run_LAI(arguments):
             msg = "LAI Failed: \n {}".format(run_.stderr)
         os.chdir(cwd)
         return {"command": cmd, "msg": msg,
-                "out_fpath": arguments["output"], "returncode": run_.returncode}
+                "out_fpath": arguments["out_fpath"], "returncode": run_.returncode}
