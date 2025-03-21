@@ -2,8 +2,9 @@ import subprocess
 from pathlib import Path
 
 def run_gffread(arguments):
-    #gffread -y proteins.fasta -g ncbi_dataset/data/GCF_000001735.4/GCF_000001735.4_TAIR10.1_genomic.fna genomic_clean.gff
     outdir = arguments["output"] / "BUSCOCompleteness"
+    if not outdir.exists():
+        outdir.mkdir(parents=True, exist_ok=True)
     outfile = outdir / "{}.proteins.fasta".format(Path(arguments["ref_assembly"]).stem)
     cmd = "gffread -y {} -g {} {}".format(outfile, 
                                             arguments["ref_assembly"],
