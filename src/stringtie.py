@@ -30,7 +30,7 @@ def run_stringtie(arguments):
 def run_gffcompare(arguments):
     outdir = arguments["output"] / "RNASeqCheck"
     gtffile = outdir / "{}.gtf".format(Path(arguments["alignments"]).stem)
-    output_name = outdir / arguments["alignments"].stem
+    output_name = outdir / Path(arguments["alignments"]).stem
     cmd = "gffcompare -r {} {} -o {}.stats".format(arguments["ref_annotation"],
                                             gtffile,
                                             output_name)
