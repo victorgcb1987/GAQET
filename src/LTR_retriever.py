@@ -8,12 +8,12 @@ from pathlib import Path
 def create_outdir(arguments):
     #Output directory (to save LTR_retriever input and output files) path
     outdir = arguments["output"] / "LAICompleteness"
-    outfile = outdir / arguments["fasta"].name
+    outfile = outdir / arguments["ref_assembly"].name
 
     if not outdir.exists():
         outdir.mkdir(parents=True)
     if not outfile.exists():
-        cmd = f"ln -s {str(arguments['fasta'])} {str(outfile)}"
+        cmd = f"ln -s {str(arguments['ref_assembly'])} {str(outfile)}"
         run_ = subprocess.run(cmd, shell=True)
     msg = "The output directory has been successfully created"
 
@@ -24,12 +24,12 @@ def create_outdir(arguments):
 
 def run_suffixerator(arguments):
     #output dir path + name for output files
-    index = arguments["output"] / arguments["fasta"].name
+    index = arguments["output"] / arguments["ref_assembly"].name
     #suffixerator command
-    cmd = "gt suffixerator -db {} -indexname {} -tis -suf -lcp -des -ssp -sds -dna".format(arguments["fasta"], index)
+    cmd = "gt suffixerator -db {} -indexname {} -tis -suf -lcp -des -ssp -sds -dna".format(arguments["ref_assembly"], index)
 
     #Check if suffixerator is already done
-    md5 = arguments["output"] / "{}.md5".format(arguments["fasta"].name)
+    md5 = arguments["output"] / "{}.md5".format(arguments["ref_assembly"].name)
     if md5.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "suffixerator already done",
@@ -53,9 +53,9 @@ def run_suffixerator(arguments):
 
 def run_harvest(arguments):
     #taking suffixerator output dir to use it as input
-    index = arguments["output"] / arguments["fasta"].name
-    #creating output: output path + file .harvest.scn /w fasta file name
-    out = arguments["output"] / "{}.harvest.scn".format(arguments["fasta"].name)
+    index = arguments["output"] / arguments["ref_assembly"].name
+    #creating output: output path + file .harvest.scn /w ref_assembly file name
+    out = arguments["output"] / "{}.harvest.scn".format(arguments["ref_assembly"].name)
     #harvest command
     cmd = "gt ltrharvest -index {} -minlenltr 100 -maxlenltr 7000 -mintsd 4 -maxtsd 6 -motif TGCA -motifmis 1 -similar 85 -vic 10 -seed 20 -seqids yes > {}".format(index, out)
 
@@ -84,11 +84,11 @@ def run_harvest(arguments):
 def run_finder(arguments):
     #finder command
     cwd = Path(os.getcwd())
-    cmd = "LTR_FINDER_parallel -seq {} -threads {} -harvest_out -size 1000000 -time 300".format(arguments["fasta"],
+    cmd = "LTR_FINDER_parallel -seq {} -threads {} -harvest_out -size 1000000 -time 300".format(arguments["ref_assembly"],
                                                                                                 arguments["threads"])
 
     #Check if FINDER is already done
-    out_file = arguments["output"] / "{}.finder.combine.scn".format(arguments["fasta"].name)
+    out_file = arguments["output"] / "{}.finder.combine.scn".format(arguments["ref_assembly"].name)
     if out_file.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "harvest already done",
@@ -115,13 +115,13 @@ def run_finder(arguments):
 
 
 def concatenate_outputs(arguments):
-    outpath = arguments["output"] / arguments["fasta"].name 
+    outpath = arguments["output"] / arguments["ref_assembly"].name 
     cmd = "cat {}.harvest.scn {}.finder.combine.scn > {}.rawLTR.scn".format(outpath, 
                                                                             outpath, 
                                                                             outpath)
 
     #Check if "cat" is already done
-    out_file = arguments["output"] / "{}.rawLTR.scn".format(arguments["fasta"].name)
+    out_file = arguments["output"] / "{}.rawLTR.scn".format(arguments["ref_assembly"].name)
     if out_file.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "Concatenation of the output files from Harvest and Finder successfully completed.",
@@ -145,10 +145,10 @@ def concatenate_outputs(arguments):
 
 def run_LTR_retriever(arguments):
     cwd = Path(os.getcwd())
-    cmd = "LTR_retriever -genome {} -inharvest {}.rawLTR.scn -threads {}".format(arguments["fasta"].name,
-                                                                                arguments["fasta"].name,
+    cmd = "LTR_retriever -genome {} -inharvest {}.rawLTR.scn -threads {}".format(arguments["ref_assembly"].name,
+                                                                                arguments["ref_assembly"].name,
                                                                                 arguments["threads"])
-    outfile = arguments["output"] / "{}.out".format(arguments["fasta"].name)
+    outfile = arguments["output"] / "{}.out".format(arguments["ref_assembly"].name)
     if outfile.exists():
         return {"command": cmd, "msg": "LTR_retriever already done",
                 "out_fpath": arguments["output"]}
@@ -168,10 +168,10 @@ def run_LTR_retriever(arguments):
 
 def run_LAI(arguments):
     cwd = Path(os.getcwd())
-    cmd = "LAI -genome {} -intact {}.pass.list -all {}.out".format(arguments["fasta"].name,
-                                                                            arguments["fasta"].name,
-                                                                            arguments["fasta"].name)
-    outfile = arguments["output"] / "{}.LAI.LTR.ava.out".format(arguments["fasta"].name)
+    cmd = "LAI -genome {} -intact {}.pass.list -all {}.out".format(arguments["ref_assembly"].name,
+                                                                            arguments["ref_assembly"].name,
+                                                                            arguments["ref_assembly"].name)
+    outfile = arguments["output"] / "{}.LAI.LTR.ava.out".format(arguments["ref_assembly"].name)
     if outfile.exists():
         return {"command": cmd, "msg": "LAI already done",
                 "out_fpath": arguments["output"]}

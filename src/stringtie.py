@@ -28,7 +28,7 @@ def run_gffcompare(arguments):
     outdir = arguments["output"] / "RNASeqCheck"
     gtffile = outdir / "{}.gtf".format(arguments["alignments"].stem)
     output_name = outdir / arguments["alignments"].stem
-    cmd = "gffcompare -r {} {} -o {}.stats".format(arguments["reference_annotation"],
+    cmd = "gffcompare -r {} {} -o {}.stats".format(arguments["ref_annotation"],
                                             gtffile,
                                             output_name)
     
