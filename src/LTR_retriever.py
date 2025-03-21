@@ -30,6 +30,7 @@ def run_suffixerator(arguments):
 
     #Check if suffixerator is already done
     md5 = arguments["LAI_dir"] / "{}.md5".format(Path(arguments["ref_assembly"]).name)
+    print(md5)
     if md5.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "suffixerator already done",
