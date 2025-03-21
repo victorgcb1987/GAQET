@@ -63,30 +63,40 @@ def main():
             name_dir.mkdir(parents=True, exist_ok=True)
 
         agat_statistics = run_agat(values)
-        stats[name]["agat_statistics"] = agat_statistics
         print(agat_statistics)
+        stats[name]["agat_statistics"] = agat_statistics
 
         gffread_results = run_gffread(values)
-        busco_results = run_busco(values)
-        stats[name]["busco_results"] = busco_results
         print(gffread_results)
+        busco_results = run_busco(values)
         print(busco_results)
+        stats[name]["busco_results"] = busco_results
 
         outdir =  create_outdir(values)
+        print(outdir)
         suffixerator =  run_suffixerator(values)
         if "returncode" in suffixerator:
             if suffixerator["returncode"] == 1:
                 raise RuntimeError("Suffixerator has failed")
+        print(suffixerator)
         harvest = run_harvest(values)
+        print(harvest)
         finder = run_finder(values)
+        print(finder)
         cat = concatenate_outputs(values)
+        print(cat)
         LTR = run_LTR_retriever(values)
+        print(LTR)
         LAI = run_LAI(values)
+        print(LAI)
         stats[name]["LAI"] = LAI
 
         stringtie = run_stringtie(values)
+        print(stringtie)
         gffcompare = run_gffcompare(values)
+        print(gffcompare)
         annotation_scores = calculate_annotation_scores(values)
+        print(annotation_scores)
         stats[name]["annotation_scores"] = annotation_scores
 
 

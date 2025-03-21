@@ -22,7 +22,7 @@ def run_gffread(arguments):
         run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
         #Is process has gone well
         if run_.returncode == 0:
-            msg = "GFFread run succesfully"
+            msg = "GFFread run successfully"
         #But if not
         else:
             msg = "GFFread Failed: \n {}".format(run_.stderr)
@@ -49,7 +49,7 @@ def run_busco(arguments):
         run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
         #Is process has gone well
         if run_.returncode == 0:
-            msg = "BUSCO run succesfully"
+            msg = "BUSCO run successfully"
         #But if not
         else:
             msg = "BUSCO Failed: \n {}".format(run_.stderr)
