@@ -1,9 +1,10 @@
 import subprocess
+from pahtlib import Path
 
 def run_gffread(arguments):
     #gffread -y proteins.fasta -g ncbi_dataset/data/GCF_000001735.4/GCF_000001735.4_TAIR10.1_genomic.fna genomic_clean.gff
     out_dir = arguments["output"] / "BUSCOCompleteness"
-    out_file = out_dir / "{}.proteins.fasta".format(arguments["ref_assembly"].stem)
+    out_file = out_dir / "{}.proteins.fasta".format(Path(arguments["ref_assembly"]).stem)
     cmd = "gffread -y {} -g {} {}".format(outfile, 
                                             arguments["ref_assembly"],
                                             arguments["annotation"])
