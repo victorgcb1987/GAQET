@@ -15,7 +15,7 @@ def create_outdir(arguments):
     if not outfile.exists():
         cmd = f"ln -s {str(arguments['ref_assembly'])} {str(outfile)}"
         run_ = subprocess.run(cmd, shell=True)
-    msg = "The output directory for LAICompleteness has been successfully created"
+    msg = "The output directory for LAICompleteness has been created"
 
     return {"msg": msg, "out_fpath": outdir}
 
@@ -125,7 +125,7 @@ def concatenate_outputs(arguments):
     out_file = arguments["LAI_dir"] / "{}.rawLTR.scn".format(Path(arguments["ref_assembly"]).name)
     if out_file.exists():
         #Show a message if it is
-        return {"command": cmd, "msg": "Concatenation of the output files from Harvest and Finder successfully completed.",
+        return {"command": cmd, "msg": "Concatenation of the output files from Harvest and Finder is already done.",
                 "LAI_dir": arguments["LAI_dir"]}
     #But if is not done
     else:

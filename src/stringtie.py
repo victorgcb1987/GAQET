@@ -7,12 +7,12 @@ def run_stringtie(arguments):
     outdir = arguments["output"] / "RNASeqCheck"
     if not outdir.exists():
         outdir.mkdir(parents=True, exist_ok=True)
-    output_name = outdir / Path(arguments["alignments"]).name
+    output_name = outdir / Path(arguments["alignments"]).stem
     cmd = "stringtie -o {}.gtf -p {} {}".format(output_name,
                                                 arguments["threads"],
                                                 arguments["alignments"])
 
-    outfile = arguments["output"] / "{}.gtf".format(Path(arguments["alignments"]).name)
+    outfile = outdir / "{}.gtf".format(Path(arguments["alignments"]).stem)
     if outfile.exists():
         return {"command": cmd, "msg": "stringtie already done",
                 "out_fpath": outdir}
@@ -35,7 +35,7 @@ def run_gffcompare(arguments):
                                             gtffile,
                                             output_name)
     
-    outfile = arguments["output"] / "{}.stats".format(Path(arguments["alignments"]).name)
+    outfile = arguments["output"] / "{}.stats".format(Path(arguments["alignments"]).stem)
     if outfile.exists():
         return {"command": cmd, "msg": "gffcompare already done",
                 "out_fpath": outdir}
@@ -51,7 +51,7 @@ def run_gffcompare(arguments):
 
 
 def calculate_annotation_scores(arguments):
-    statsfile = arguments["output"] / "RNASeqCheck"/ "{}.stats".format(Path(arguments["alignments"]).name)
+    statsfile = arguments["output"] / "RNASeqCheck"/ "{}.stats".format(Path(arguments["alignments"]).stem)
     annotation_scores = {}
     f1_checks = ["Transcript level:", "Locus level:"]
     number_check = ["Matching transcripts:", "Matching loci:"]
