@@ -60,6 +60,7 @@ def calculate_annotation_scores(arguments):
         for line in stats_fhand:
             for check in f1_checks:
                 if check in line:
+                    print(line)
                     line = line.strip()
                     line = line.split()
                     sensivity = float(line[2])
