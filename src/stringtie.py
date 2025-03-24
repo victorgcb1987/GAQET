@@ -66,7 +66,7 @@ def calculate_annotation_scores(arguments):
                     sensitivity = float(line[2])
                     precision = float(line[4])
                     f1_calc = 2*(sensitivity*precision)/(sensitivity+precision)
-                    f1_scores[check.split()+"_f1"] = f1_calc
+                    f1_scores[check[:-1]+"_f1"] = f1_calc
             for check in number_check:
                 if check in line:
                     line = line.strip()
