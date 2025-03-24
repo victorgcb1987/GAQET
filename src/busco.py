@@ -56,3 +56,10 @@ def run_busco(arguments):
         #Return command, final message and output dir path
         return {"command": cmd, "msg": msg,
                 "out_fpath": outdir, "returncode": run_.returncode}
+
+
+def get_busco_results(busco_results):
+    with open(busco_results) as input:
+        for line in input:
+            if "%" in line:
+                return line.strip()

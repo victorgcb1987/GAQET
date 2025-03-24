@@ -44,3 +44,8 @@ def run_agat(arguments):
         #Return command, final message and output dir path
         return {"command": command, "msg": msg,
                 "out_fpath": out_fpath}
+
+#def get_agat_results(agat_results):
+
+
+#    return = "NG:1212112;NT:34345334"

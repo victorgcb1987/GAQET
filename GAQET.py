@@ -54,7 +54,7 @@ def main():
     if not out_dir.exists():
         out_dir.mkdir(parents=True, exist_ok=True)
     stats = {}                                          #diccionario para guardar los resultados de cada modulo por cada especie
-    for name, values in arguments["input"].items():     #aqui no se deberia abrir samples????
+    for name, values in arguments["input"].items():
         stats[name] = {}
         name_dir = out_dir / name
         values["output"] = name_dir
@@ -70,7 +70,7 @@ def main():
         print(gffread_results)
         busco_results = run_busco(values)
         print(busco_results)
-        stats[name]["busco_results"] = busco_results
+        stats[name]["busco_results"] = get_busco_results(busco_results)
 
         LAI_out_dir =  create_outdir(values)
         print(LAI_out_dir)
@@ -99,6 +99,8 @@ def main():
         annotation_scores = calculate_annotation_scores(values)
         print(annotation_scores)
         stats[name]["annotation_scores"] = annotation_scores
+
+        
 
 
 
