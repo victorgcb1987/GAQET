@@ -63,7 +63,7 @@ def calculate_annotation_scores(arguments):
                     print(line)
                     line = line.strip()
                     line = line.split()
-                    sensivity = float(line[2])
+                    sensitivity = float(line[2])
                     precision = float(line[4])
                     f1_calc = 2*(sensitivity*precision)/(sensitivity+precision)
                     f1_scores[check.split()+"_f1"] = f1_calc
