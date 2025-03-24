@@ -67,8 +67,9 @@ def calculate_annotation_scores(arguments):
                     f1_calc = 2*(sensitivity*precision)/(sensitivity+precision)
                     f1_scores[check.split()+"_f1"] = f1_calc
             for check in number_check:
-                check = check.strip()
-                check = check.split()
+                line = line.strip()
+                line = line.split()
                 matching_number = line[-1]
+                print(f1_scores, check, matching_number)
                 f1_scores[check] = matching_number
     return f1_scores
