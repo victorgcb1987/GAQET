@@ -170,7 +170,7 @@ def run_LTR_retriever(arguments):
 
 def run_LAI(arguments):
     cwd = Path(os.getcwd())
-    cmd = "LAI -genome {} -intact {}.mod.pass.list -all {}.out".format(Path(arguments["ref_assembly"]).name,
+    cmd = "LAI -genome {} -intact {}.mod.pass.list -all {}.mod.out".format(Path(arguments["ref_assembly"]).name,
                                                                             Path(arguments["ref_assembly"]).name,
                                                                             Path(arguments["ref_assembly"]).name)
     outfile = arguments["LAI_dir"] / "{}.LAI.LTR.ava.out".format(Path(arguments["ref_assembly"]).name)
