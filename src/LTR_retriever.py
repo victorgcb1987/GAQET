@@ -149,7 +149,7 @@ def run_LTR_retriever(arguments):
     cmd = "LTR_retriever -genome {} -inharvest {}.rawLTR.scn -threads {}".format(Path(arguments["ref_assembly"]).name,
                                                                                 Path(arguments["ref_assembly"]).name,
                                                                                 arguments["threads"])
-    outfile = arguments["LAI_dir"] / "{}.mod.pass.list ".format(Path(arguments["ref_assembly"]).name)
+    outfile = arguments["LAI_dir"] / "{}.mod.pass.list".format(Path(arguments["ref_assembly"]).name)
     print(outfile)
     if outfile.exists():
         return {"command": cmd, "msg": "LTR_retriever already done",
