@@ -173,7 +173,7 @@ def run_LAI(arguments):
     cmd = "LAI -genome {} -intact {}.mod.pass.list -all {}.mod.out".format(Path(arguments["ref_assembly"]).name,
                                                                             Path(arguments["ref_assembly"]).name,
                                                                             Path(arguments["ref_assembly"]).name)
-    outfile = arguments["LAI_dir"] / "{}.LAI.LTR.ava.out".format(Path(arguments["ref_assembly"]).name)
+    outfile = arguments["LAI_dir"] / "{}.mod.out.LAI".format(Path(arguments["ref_assembly"]).name)
     if outfile.exists():
         return {"command": cmd, "msg": "LAI already done",
                 "LAI_dir": arguments["LAI_dir"]}
@@ -186,4 +186,5 @@ def run_LAI(arguments):
             msg = "LAI Failed: \n {}".format(run_.stderr)
         os.chdir(cwd)
         return {"command": cmd, "msg": msg,
-                "LAI_dir": arguments["LAI_dir"], "returncode": run_.returncode}
+                "out_fpath": outfile, "returncode": run_.returncode,
+                }
