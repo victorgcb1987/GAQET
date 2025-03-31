@@ -188,3 +188,14 @@ def run_LAI(arguments):
         return {"command": cmd, "msg": msg,
                 "out_fpath": outfile, "returncode": run_.returncode,
                 }
+
+
+
+def get_LAI(LAI):
+    with open(LAI) as input:
+        for line in input:
+            if "whole_genome" in line:
+                line = line.strip()
+                line = line.split()
+                LAI_value = line[6]
+                return f"LAI:{LAI_value}"

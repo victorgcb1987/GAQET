@@ -64,7 +64,7 @@ def main():
 
         agat_statistics = run_agat(values)
         print(agat_statistics)
-        stats[name]["agat_statistics"] = agat_statistics
+        stats[name]["agat_statistics"] = get_agat_statistics(agat_statistics)
 
         gffread_results = run_gffread(values)
         print(gffread_results)

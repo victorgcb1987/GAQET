@@ -9,20 +9,6 @@ def run_agat(arguments):
     #Creating command to run AGAT as a list
     cmd = ["agat_sp_statistics.pl", "--gff", "{}".format(arguments["annotation"]), "-o", "{}".format(out_fpath)]
 
-    # #Adding "distribution" to command if it has been selected
-    # if arguments["distribution"]:
-    #     dist_arg = ["-d"]
-    #     cmd += dist_arg
-    # #Adding "plot" to command if it has been selected
-    # if arguments["plot"]:
-    #     plot_arg = ["-p"]
-    #     cmd += plot_arg
-
-    # #Adding "genome size" to command if it has a different value than default
-    # if arguments["gs"] > 0:
-    #     size_arg = ["-g {}".format(arguments["gs"])]
-    #     cmd += size_arg
-
 #Check if AGAT is already done
     if out_fpath.exists():
         #Show a message if it is
@@ -45,7 +31,12 @@ def run_agat(arguments):
         return {"command": command, "msg": msg,
                 "out_fpath": out_fpath}
 
-#def get_agat_results(agat_results):
 
+#def get_agat_results(agat_results):
+def get_agat_statistics(agat_statistics):
+    with open(agat_statistics) as input:
+        for line in input:
+            if "%" in line:
+                return line.strip()
 
 #    return = "NG:1212112;NT:34345334"
