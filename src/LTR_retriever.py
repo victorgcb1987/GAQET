@@ -34,7 +34,7 @@ def run_suffixerator(arguments):
     if md5.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "suffixerator already done",
-                "LAI_dir": index}
+                "out_fpath": index}
     #But if is not done
     else:
         #Run suffixerator
@@ -47,7 +47,7 @@ def run_suffixerator(arguments):
             msg = "suffixerator Failed: \n {}".format(run_.stderr)
         #Return command, final message and output dir path
         return {"command": cmd, "msg": msg,
-                "LAI_dir": index, "returncode": run_.returncode}
+                "out_fpath": index, "returncode": run_.returncode}
 
 
 
@@ -64,7 +64,7 @@ def run_harvest(arguments):
     if out.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "harvest already done",
-                "LAI_dir": out}
+                "out_fpath": out}
     #Otherwise, send this error message
     else:
         #Run harvest
@@ -77,7 +77,7 @@ def run_harvest(arguments):
             msg = "HARVEST Failed: \n {}".format(run_.stderr)
         #Return command, final message and output dir path
         return {"command": cmd, "msg": msg,
-                "LAI_dir": out, "returncode": run_.returncode}
+                "out_fpath": out, "returncode": run_.returncode}
 
 
 
@@ -93,7 +93,7 @@ def run_finder(arguments):
     if out_file.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "harvest already done",
-                "LAI_dir": arguments["LAI_dir"]}
+                "out_fpath": arguments["LAI_dir"]}
     #But if is not done
     else:
         #Change the working directory to the "output" path
@@ -110,7 +110,7 @@ def run_finder(arguments):
         os.chdir(cwd)
         #Return command, final message and output dir path
         return {"command": cmd, "msg": msg,
-                "LAI_dir": arguments["LAI_dir"], "returncode": run_.returncode}
+                "out_fpath": arguments["LAI_dir"], "returncode": run_.returncode}
 
 
 
@@ -126,7 +126,7 @@ def concatenate_outputs(arguments):
     if out_file.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "Concatenation of the output files from Harvest and Finder is already done.",
-                "LAI_dir": arguments["LAI_dir"]}
+                "out_fpath": arguments["LAI_dir"]}
     #But if is not done
     else:
         #Run command
@@ -139,7 +139,7 @@ def concatenate_outputs(arguments):
             msg = "Failed: \n {}".format(run_.stderr)
         #Return command, final message and output dir path
         return {"command": cmd, "msg": msg,
-                "LAI_dir": arguments["LAI_dir"], "returncode": run_.returncode}
+                "out_fpath": arguments["LAI_dir"], "returncode": run_.returncode}
 
 
 
@@ -153,7 +153,7 @@ def run_LTR_retriever(arguments):
     print(outfile)
     if outfile.exists():
         return {"command": cmd, "msg": "LTR_retriever already done",
-                "LAI_dir": arguments["LAI_dir"]}
+                "out_fpath": arguments["LAI_dir"]}
     else:
         os.chdir(arguments["LAI_dir"])
         run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
@@ -163,7 +163,7 @@ def run_LTR_retriever(arguments):
             msg = "LTR_retriever Failed: \n {}".format(run_.stderr)
         os.chdir(cwd)
         return {"command": cmd, "msg": msg,
-                "LAI_dir": arguments["LAI_dir"], "returncode": run_.returncode}
+                "out_fpath": arguments["LAI_dir"], "returncode": run_.returncode}
 
 
 
@@ -176,7 +176,7 @@ def run_LAI(arguments):
     outfile = arguments["LAI_dir"] / "{}.mod.out.LAI".format(Path(arguments["ref_assembly"]).name)
     if outfile.exists():
         return {"command": cmd, "msg": "LAI already done",
-                "LAI_dir": arguments["LAI_dir"]}
+                "out_fpath": arguments["LAI_dir"]}
     else:
         os.chdir(arguments["LAI_dir"])
         run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
