@@ -31,6 +31,11 @@ AGAT_COLS = ["Gene_Models (N)",
         "Shortest CDS Model Length (bp)",
         "Shortest Intron Length (bp)"]
 
+RNASEQ_COLS = ["Transcript level_f1", 
+            "Locus level_f1",
+            "Matching transcripts",
+            "Matching loci"]
+
 #Function to create arguments and help
 def parse_arguments():
     description = 'Tool with four modules to summarise the metrics and evaluate the quality of a genome annotation'
@@ -67,6 +72,7 @@ def get_arguments():
     return {"input": samples,
             "threads": parser.threads,
             "output": Path(parser.output)}
+
 
 
 def main():
@@ -124,16 +130,19 @@ def main():
     with open("latabla", "w") as latabla_fhand:
         header = ["Name"]
         header += AGAT_COLS
-        
-        #AQUI SIGUES CONSTRUYENDO LA FILA DE CABECERA
+        header += "Busco results"
+        header += "LAI"
+        header += RNASEQ_COLS
+        print(header)
         latabla_fhand.write("\t".join(header)+"\n")
+
         for name in arguments:
             results = [name]
             results += [stats[name]["agat_statistics"][stat] for stat in AGAT_COLS]
-        
-         #AQUI SIGUES CONSTRUYENDO LA FILA DE los valores
+            results += [stats[name]["busco_results"]]
+            results += [stats[name]["LAI"]]
+            results += [stats[name]["annotation_scores"][score] for score in RNASEQ_COLS]
 
         
-
 if __name__ == "__main__":
     main()
