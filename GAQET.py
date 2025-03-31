@@ -10,6 +10,27 @@ from src.LTR_retriever import create_outdir, run_suffixerator, run_harvest, run_
 from src.stringtie import run_stringtie, run_gffcompare, calculate_annotation_scores
 
 
+AGAT_COLS = ["Gene_Models (N)",
+        "Transcript_Models (N)",
+        "CDS_Models (N)",
+        "Exons (N)",
+        "UTR5' (N)",
+        "UTR3' (N)",
+        "Overlapping_Gene_Models (N)",
+        "Single Exon Gene Models (N)",
+        "Single Exon Transcripts (N)",
+        "Total Gene Space (Mb)",
+        "Mean Gene Model Length (bp)",
+        "Mean CDS Model Length (bp)",
+        "Mean Exon Length (bp)",
+        "Mean Intron Length (bp)",
+        "Longest Gene Model Length (bp)",
+        "Longest CDS Model Length (bp)",
+        "Longest Intron Length (bp)",
+        "Shortest Gene Model Length (bp)",
+        "Shortest CDS Model Length (bp)",
+        "Shortest Intron Length (bp)"]
+
 #Function to create arguments and help
 def parse_arguments():
     description = 'Tool with four modules to summarise the metrics and evaluate the quality of a genome annotation'
@@ -64,7 +85,7 @@ def main():
 
         agat_statistics = run_agat(values)
         print(agat_statistics)
-        stats[name]["agat_statistics"] = agat_statistics ###
+        stats[name]["agat_statistics"] = get_agat_stats(agat_statistics) ###
 
         gffread_results = run_gffread(values)
         print(gffread_results)
@@ -100,9 +121,19 @@ def main():
         print(annotation_scores)
         stats[name]["annotation_scores"] = annotation_scores ###
 
+    with open("latabla", "w") as latabla_fhand:
+        header = ["Name"]
+        header += AGAT_COLS
         
+        #AQUI SIGUES CONSTRUYENDO LA FILA DE CABECERA
+        latabla_fhand.write("\t".join(header)+"\n")
+        for name in arguments:
+            results = [name]
+            results += [stats[name]["agat_statistics"][stat] for stat in AGAT_COLS]
+        
+         #AQUI SIGUES CONSTRUYENDO LA FILA DE los valores
 
-
+        
 
 if __name__ == "__main__":
     main()

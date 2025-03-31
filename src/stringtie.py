@@ -73,3 +73,4 @@ def calculate_annotation_scores(arguments):
                     matching_number = line[-1]
                     f1_scores[check] = matching_number
     return f1_scores
+
