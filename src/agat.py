@@ -78,7 +78,7 @@ def get_agat_stats(agat_statistics):
         "Shortest cds piece (bp)": "Shortest CDS Model Length (bp)",
         "Shortest intron into cds part (bp)": "Shortest Intron Length (bp)"
     }
-    with open(agat_results["AGAT stats"]["outfile"], 'r') as stats_fhand:
+    with open(agat_statistics["out_fpath"], 'r') as stats_fhand:
         for line in stats_fhand:
             if not line.rstrip():
                 continue
