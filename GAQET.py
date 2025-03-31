@@ -135,8 +135,8 @@ def main():
         header += RNASEQ_COLS
         print(header)
         latabla_fhand.write("\t".join(header)+"\n")
-        print([stats[name]["agat_statistics"])
-        
+        print(stats[name]["agat_statistics"])
+
         for name in arguments:
             results = [name]
             results += [stats[name]["agat_statistics"][stat] for stat in AGAT_COLS]
