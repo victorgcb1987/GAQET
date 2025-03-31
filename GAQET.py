@@ -64,13 +64,13 @@ def main():
 
         agat_statistics = run_agat(values)
         print(agat_statistics)
-        stats[name]["agat_statistics"] = get_agat_statistics(agat_statistics)
+        stats[name]["agat_statistics"] = agat_statistics ###
 
         gffread_results = run_gffread(values)
         print(gffread_results)
         busco_results = run_busco(values)
         print(busco_results)
-        stats[name]["busco_results"] = get_busco_results(busco_results)
+        stats[name]["busco_results"] = get_busco_results(busco_results) ###
 
         LAI_out_dir =  create_outdir(values)
         print(LAI_out_dir)
@@ -90,7 +90,7 @@ def main():
         print(LTR)
         LAI = run_LAI(values)
         print(LAI)
-        stats[name]["LAI"] = LAI
+        stats[name]["LAI"] = get_LAI(LAI) ###
 
         stringtie = run_stringtie(values)
         print(stringtie)
@@ -98,7 +98,7 @@ def main():
         print(gffcompare)
         annotation_scores = calculate_annotation_scores(values)
         print(annotation_scores)
-        stats[name]["annotation_scores"] = annotation_scores
+        stats[name]["annotation_scores"] = annotation_scores ###
 
         
 
