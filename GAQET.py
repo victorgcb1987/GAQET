@@ -70,7 +70,7 @@ def main():
         print(gffread_results)
         busco_results = run_busco(values)
         print(busco_results)
-        stats[name]["busco_results"] = get_busco_results(busco_results) ###
+        stats[name]["busco_results"] = get_busco_results(busco_results, lineage=values["lineage"]) ###
 
         LAI_out_dir =  create_outdir(values)
         print(LAI_out_dir)
