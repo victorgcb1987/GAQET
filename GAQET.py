@@ -144,7 +144,7 @@ def main():
             results += [stats[name]["agat_statistics"][stat] for stat in AGAT_COLS]
             results += [stats[name]["busco_results"]]
             results += [stats[name]["LAI"]]
-            results += [stats[name]["annotation_scores"][score.replace(":", "")] for score in RNASEQ_COLS]
+            results += [stats[name]["annotation_scores"][score] for score in RNASEQ_COLS]
 
         
 if __name__ == "__main__":
