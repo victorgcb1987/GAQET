@@ -139,7 +139,7 @@ def main():
         print(AGAT_COLS)
         print(stats[name]["agat_statistics"])
 
-        for name in arguments:
+        for name in arguments["input"]:
             results = [name]
             results += [stats[name]["agat_statistics"][stat] for stat in AGAT_COLS]
             results += [stats[name]["busco_results"]]
