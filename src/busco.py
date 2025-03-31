@@ -58,7 +58,8 @@ def run_busco(arguments):
                 "out_fpath": outdir, "returncode": run_.returncode}
 
 
-def get_busco_results(busco_results):
+def get_busco_results(busco_results["out_fpath"]):
+    # tendría que abrir short_summary.specific.viridiplantae_odb10.BUSCOCompleteness.txt
     with open(busco_results) as input:
         for line in input:
             if "%" in line:
