@@ -61,7 +61,7 @@ def run_busco(arguments):
 def get_busco_results(busco_results, lineage=""):
     # tendría que abrir short_summary.specific.viridiplantae_odb10.BUSCOCompleteness.txt
     busco_fpath = busco_results["out_fpath"] / "short_summary.specific.{}.BUSCOCompleteness.txt".format(lineage)
-    with open(busco_results["out_fpath"]) as input:
+    with open(busco_fpath) as input:
         for line in input:
             if "%" in line:
                 return line.strip()
