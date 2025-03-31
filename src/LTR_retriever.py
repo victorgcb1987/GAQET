@@ -93,7 +93,7 @@ def run_finder(arguments):
     if out_file.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "harvest already done",
-                "out_fpath": arguments["LAI_dir"]}
+                "out_fpath": out_file}
     #But if is not done
     else:
         #Change the working directory to the "output" path
@@ -110,7 +110,7 @@ def run_finder(arguments):
         os.chdir(cwd)
         #Return command, final message and output dir path
         return {"command": cmd, "msg": msg,
-                "out_fpath": arguments["LAI_dir"], "returncode": run_.returncode}
+                "out_fpath": out_file, "returncode": run_.returncode}
 
 
 
@@ -126,7 +126,7 @@ def concatenate_outputs(arguments):
     if out_file.exists():
         #Show a message if it is
         return {"command": cmd, "msg": "Concatenation of the output files from Harvest and Finder is already done.",
-                "out_fpath": arguments["LAI_dir"]}
+                "out_fpath": out_file}
     #But if is not done
     else:
         #Run command
@@ -139,7 +139,7 @@ def concatenate_outputs(arguments):
             msg = "Failed: \n {}".format(run_.stderr)
         #Return command, final message and output dir path
         return {"command": cmd, "msg": msg,
-                "out_fpath": arguments["LAI_dir"], "returncode": run_.returncode}
+                "out_fpath": out_file, "returncode": run_.returncode}
 
 
 
@@ -153,7 +153,7 @@ def run_LTR_retriever(arguments):
     print(outfile)
     if outfile.exists():
         return {"command": cmd, "msg": "LTR_retriever already done",
-                "out_fpath": arguments["LAI_dir"]}
+                "out_fpath": outfile}
     else:
         os.chdir(arguments["LAI_dir"])
         run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
@@ -163,7 +163,7 @@ def run_LTR_retriever(arguments):
             msg = "LTR_retriever Failed: \n {}".format(run_.stderr)
         os.chdir(cwd)
         return {"command": cmd, "msg": msg,
-                "out_fpath": arguments["LAI_dir"], "returncode": run_.returncode}
+                "out_fpath": outfile, "returncode": run_.returncode}
 
 
 
@@ -176,7 +176,7 @@ def run_LAI(arguments):
     outfile = arguments["LAI_dir"] / "{}.mod.out.LAI".format(Path(arguments["ref_assembly"]).name)
     if outfile.exists():
         return {"command": cmd, "msg": "LAI already done",
-                "out_fpath": arguments["LAI_dir"]}
+                "out_fpath": outfile}
     else:
         os.chdir(arguments["LAI_dir"])
         run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
