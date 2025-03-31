@@ -192,7 +192,7 @@ def run_LAI(arguments):
 
 
 def get_LAI(LAI):
-    with open(LAI) as input:
+    with open(LAI["out_fpath"]) as input:
         for line in input:
             if "whole_genome" in line:
                 line = line.strip()
