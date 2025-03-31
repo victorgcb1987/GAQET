@@ -33,10 +33,12 @@ def run_agat(arguments):
 
 
 #def get_agat_results(agat_results):
-def get_agat_statistics(agat_statistics):
-    with open(agat_statistics) as input:
-        for line in input:
-            if "%" in line:
-                return line.strip()
+# def get_agat_statistics(agat_statistics):
+#     with open(agat_statistics) as input:
+#         for line in input:
+#             if "%" in line:
+#                 return line.strip()
 
 #    return = "NG:1212112;NT:34345334"
+
+#Gene_Models (N)	Transcript_Models (N)	CDS_Models (N)	Exons (N)	UTR5' (N)	UTR3' (N)	Overlapping_Gene_Models (N)	Single Exon Gene Models (N)	Single Exon Transcripts (N)	Total Gene Space (Mb)	Mean Gene Model Length (bp)	Mean CDS Model Length (bp)	Mean Exon Length (bp)	Mean Intron Length (bp)	Longest Gene Model Length (bp)	Longest CDS Model Length (bp)	Longest Intron Length (bp)	Shortest Gene Model Length (bp)	Shortest CDS Model Length (bp)	Shortest Intron Length (bp)
