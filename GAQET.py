@@ -31,8 +31,8 @@ AGAT_COLS = ["Gene_Models (N)",
         "Shortest CDS Model Length (bp)",
         "Shortest Intron Length (bp)"]
 
-RNASEQ_COLS = ["Transcript level_f1:", 
-            "Locus level_f1:",
+RNASEQ_COLS = ["Transcript level_f1", 
+            "Locus level_f1",
             "Matching transcripts:",
             "Matching loci:"]
 
