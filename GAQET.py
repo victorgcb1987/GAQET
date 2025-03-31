@@ -130,12 +130,13 @@ def main():
     with open("latabla", "w") as latabla_fhand:
         header = ["Name"]
         header += AGAT_COLS
-        header += "Busco results"
-        header += "LAI"
+        header += ["Busco results"]
+        header += ["LAI"]
         header += RNASEQ_COLS
         print(header)
         latabla_fhand.write("\t".join(header)+"\n")
-
+        print([stats[name]["agat_statistics"])
+        
         for name in arguments:
             results = [name]
             results += [stats[name]["agat_statistics"][stat] for stat in AGAT_COLS]
