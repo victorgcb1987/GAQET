@@ -105,7 +105,7 @@ def get_agat_stats(agat_statistics):
         for line in stats_fhand:
             if "--- transcript ---" in line:
                 mapping = mapping_transcript
-            elif "--- mrna ---":
+            elif "--- mrna ---" in line:
                 mapping = mapping_mrna
             if not line.rstrip():
                 continue
