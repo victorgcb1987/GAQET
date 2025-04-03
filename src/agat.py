@@ -56,7 +56,7 @@ def get_agat_stats(agat_statistics):
         "Shortest CDS Model Length (bp)": 0,
         "Shortest Intron Length (bp)": 0
     }
-    mapping = {
+    mapping_mrna = {
         "Number of gene": "Gene_Models (N)",
         "Number of mrna": "Transcript_Models (N)",
         "Number of cds": "CDS_Models (N)",
@@ -78,8 +78,35 @@ def get_agat_stats(agat_statistics):
         "Shortest cds piece (bp)": "Shortest CDS Model Length (bp)",
         "Shortest intron into cds part (bp)": "Shortest Intron Length (bp)"
     }
+    mapping_transcript = {
+        "Number of gene": "Gene_Models (N)",
+        "Number of transcript": "Transcript_Models (N)",
+        # "Number of cds": "CDS_Models (N)",
+        "Number of exon": "Exons (N)",
+        # "Number of five_prime_utr": "UTR5' (N)",
+        # "Number of three_prime_utr": "UTR3' (N)",
+        "Number gene overlapping": "Overlapping_Gene_Models (N)",
+        "Number of single exon gene": "Single Exon Gene Models (N)",
+        "Number of single exon transcript": "Single Exon Transcripts (N)",
+        "Total gene length (bp)": "Total Gene Space (Mb)",
+        "mean gene length (bp)": "Mean Gene Model Length (bp)",
+        # "mean cds length (bp)": "Mean CDS Model Length (bp)",
+        "mean exon length (bp)": "Mean Exon Length (bp)",
+        # "mean intron in cds length (bp)": "Mean Intron Length (bp)",
+        "Longest gene (bp)": "Longest Gene Model Length (bp)",
+        # "Longest cds (bp)": "Longest CDS Model Length (bp)",
+        # "Longest intron into cds part (bp)": "Longest Intron Length (bp)",
+        "Shortest gene (bp)": "Shortest Gene Model Length (bp)",
+        # "Shortest cds piece (bp)": "Shortest CDS Model Length (bp)",
+        "Shortest intron into exon part (bp)": "Shortest Intron Length (bp)"
+    }
+
     with open(agat_statistics["out_fpath"], 'r') as stats_fhand:
         for line in stats_fhand:
+            if "--- transcript ---" in line:
+                mapping = mapping_transcript
+            elif "--- mrna ---":
+                mapping = mapping_mrna
             if not line.rstrip():
                 continue
             if ':' in line:
@@ -97,7 +124,3 @@ def get_agat_stats(agat_statistics):
             except ValueError:
                 continue  # Skip lines that can't be parsed
     return results
-
-#    return = "NG:1212112;NT:34345334"
-
-#Gene_Models (N)	Transcript_Models (N)	CDS_Models (N)	Exons (N)	UTR5' (N)	UTR3' (N)	Overlapping_Gene_Models (N)	Single Exon Gene Models (N)	Single Exon Transcripts (N)	Total Gene Space (Mb)	Mean Gene Model Length (bp)	Mean CDS Model Length (bp)	Mean Exon Length (bp)	Mean Intron Length (bp)	Longest Gene Model Length (bp)	Longest CDS Model Length (bp)	Longest Intron Length (bp)	Shortest Gene Model Length (bp)	Shortest CDS Model Length (bp)	Shortest Intron Length (bp)
