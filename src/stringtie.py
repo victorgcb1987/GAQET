@@ -46,7 +46,7 @@ def run_gffcompare(arguments):
         else:
             msg = "gffcompare Failed: \n {}".format(run_.stderr)
         return {"command": cmd, "msg": msg,
-                "out_fpath": outdir, "returncode": run_.returncode}
+                "out_fpath": outfile, "returncode": run_.returncode}
 
 
 
