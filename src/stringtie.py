@@ -35,7 +35,7 @@ def run_gffcompare(arguments):
                                             gtffile,
                                             output_name)
     
-    outfile = arguments["output"] / "{}.stats".format(Path(arguments["alignments"]).stem)
+    outfile = outdir / "{}.stats".format(Path(arguments["alignments"]).stem)
     if outfile.exists():
         return {"command": cmd, "msg": "gffcompare already done",
                 "out_fpath": outfile}
