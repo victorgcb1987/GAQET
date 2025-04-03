@@ -38,7 +38,7 @@ def run_gffcompare(arguments):
     outfile = arguments["output"] / "{}.stats".format(Path(arguments["alignments"]).stem)
     if outfile.exists():
         return {"command": cmd, "msg": "gffcompare already done",
-                "out_fpath": outdir}
+                "out_fpath": outfile}
     else:
         run_ = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE)
         if run_.returncode == 0:
