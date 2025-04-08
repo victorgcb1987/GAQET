@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import argparse
 import sys
 
@@ -8,33 +10,9 @@ from src.agat import run_agat, get_agat_stats
 from src.busco import run_busco, run_gffread, get_busco_results
 from src.LTR_retriever import create_outdir, run_suffixerator, run_harvest, run_finder, concatenate_outputs, run_LTR_retriever, run_LAI, get_LAI
 from src.stringtie import run_stringtie, run_gffcompare, calculate_annotation_scores
+from src.table import AGAT_COLS, RNASEQ_COLS
 
 
-AGAT_COLS = ["Gene_Models (N)",
-        "Transcript_Models (N)",
-        "CDS_Models (N)",
-        "Exons (N)",
-        "UTR5' (N)",
-        "UTR3' (N)",
-        "Overlapping_Gene_Models (N)",
-        "Single Exon Gene Models (N)",
-        "Single Exon Transcripts (N)",
-        "Total Gene Space (Mb)",
-        "Mean Gene Model Length (bp)",
-        "Mean CDS Model Length (bp)",
-        "Mean Exon Length (bp)",
-        "Mean Intron Length (bp)",
-        "Longest Gene Model Length (bp)",
-        "Longest CDS Model Length (bp)",
-        "Longest Intron Length (bp)",
-        "Shortest Gene Model Length (bp)",
-        "Shortest CDS Model Length (bp)",
-        "Shortest Intron Length (bp)"]
-
-RNASEQ_COLS = ["Transcript level_f1", 
-            "Locus level_f1",
-            "Matching transcripts:",
-            "Matching loci:"]
 
 #Function to create arguments and help
 def parse_arguments():
