@@ -10,6 +10,7 @@ Each runner returns a dictionary with the executed command, an informational mes
 the main output path, and a ``returncode`` (99 means “already done”).
 """
 
+
 import subprocess
 from pathlib import Path
 from typing import Any, Dict
@@ -65,8 +66,8 @@ def run_busco(arguments: Dict[str, Any]) -> Dict[str, Any]:
 
     # BUSCO command
     cmd = "busco -i {} -c {} -o {} --mode prot -l {}".format(arguments["input"],
-                                                             arguments["threads"],
-                                                              outdir,
+                                                            arguments["threads"],
+                                                            outdir,
                                                             arguments["lineage"])
 
     if outdir.exists():
