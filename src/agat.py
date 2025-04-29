@@ -1,39 +1,43 @@
 import subprocess
+from pathlib import Path
+from typing import Dict, Any
 
-def run_agat(arguments):
-    #Creating output dir
+
+def run_agat(arguments: Dict[str, Any]) -> Dict[str, Any]:
+    """Run AGAT statistics (or skip if already done)."""
+    # Create output dir
     outdir = arguments["output"] / "GenomeAnnStats"
     outdir.mkdir(parents=True, exist_ok=True)
     out_fpath = outdir / "ResultAgat.txt"
 
-    #Creating command to run AGAT as a list
+    # Command to run AGAT
     cmd = ["agat_sp_statistics.pl", "--gff", "{}".format(arguments["annotation"]), "-o", "{}".format(out_fpath)]
 
 #Check if AGAT is already done
     if out_fpath.exists():
-        #Show a message if it is
-        return {"command": cmd, "msg": "AGAT already done",
-                "out_fpath": out_fpath, "returncode": 99}
-    #But if is not done
+        return {"command": cmd,
+                "msg": "AGAT already done",
+                "out_fpath": out_fpath, 
+                "returncode": 99}
     else:
-        #Run AGAT with command
+        # Run AGAT
         command = ' '.join(cmd)
-        print(command)
         run_ = subprocess.run(command, shell=True, stdout=subprocess.PIPE)
-        #Is process has gone well
-        print(run_.returncode)
+
         if run_.returncode == 0:
             msg = "AGAT run successfully"
-        #But if not
         else:
             msg = "AGAT Failed: \n {}".format(run_.stdout)
-        #Return command, final message and output dir path
-        return {"command": command, "msg": msg,
-                "out_fpath": out_fpath}
+
+        return {"command": command,
+                "msg": msg,
+                "out_fpath": out_fpath,
+                "returncode": run_.returncode}
 
 
 
-def get_agat_stats(agat_statistics):
+def get_agat_stats(agat_statistics: Dict[str, Any]) -> Dict[str, Any]:
+    """Parse the AGAT result file into a dict of metrics."""
     results = {
         "Gene_Models (N)": 0,
         "Transcript_Models (N)": 0,
@@ -56,6 +60,7 @@ def get_agat_stats(agat_statistics):
         "Shortest CDS Model Length (bp)": 0,
         "Shortest Intron Length (bp)": 0
     }
+    # --- mapping dicts -----------------------------------------
     mapping_mrna = {
         "Number of gene": "Gene_Models (N)",
         "Number of mrna": "Transcript_Models (N)",
@@ -122,5 +127,5 @@ def get_agat_stats(agat_statistics):
                     else:
                         results[result_key] = val
             except ValueError:
-                continue  # Skip lines that can't be parsed
+                continue  # skip unparsable line
     return results
