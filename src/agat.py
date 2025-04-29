@@ -14,7 +14,7 @@ def run_agat(arguments: Dict[str, Any]) -> Dict[str, Any]:
     cmd = ["agat_sp_statistics.pl", "--gff", "{}".format(arguments["annotation"]), "-o", "{}".format(out_fpath)]
     command = ' '.join(cmd)
 
-#Check if AGAT is already done
+# Check if AGAT is already done
     if out_fpath.exists():
         return {"command": command,
                 "msg": "AGAT already done",
