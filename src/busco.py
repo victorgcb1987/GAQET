@@ -5,6 +5,9 @@ Wrapper helpers for two external tools:
 
 * **GFFread** - extracts protein FASTA from a genome + annotation GFF/GTF.
 * **BUSCO**   - computes completeness metrics on those proteins.
+
+Each runner returns a dictionary with the executed command, an informational message,
+the main output path, and a ``returncode`` (99 means “already done”).
 """
 
 import subprocess
@@ -17,12 +20,10 @@ from typing import Any, Dict
 def run_gffread(arguments: Dict[str, Any]) -> Dict[str, Any]:
     """Run *gffread* (or skip if output already exists)."""
 
-    # Create output directory
+    # Output directory and file
     outdir = arguments["output"] / "input_sequences"
     if not outdir.exists():
         outdir.mkdir(parents=True, exist_ok=True)
-        
-    # Output file path
     outfile = outdir / "{}.proteins.fasta".format(Path(arguments["ref_assembly"]).stem)
 
     # GFFread command
