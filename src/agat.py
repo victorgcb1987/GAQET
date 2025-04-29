@@ -12,10 +12,11 @@ def run_agat(arguments: Dict[str, Any]) -> Dict[str, Any]:
 
     # Command to run AGAT
     cmd = ["agat_sp_statistics.pl", "--gff", "{}".format(arguments["annotation"]), "-o", "{}".format(out_fpath)]
+    command = ' '.join(cmd)
 
 #Check if AGAT is already done
     if out_fpath.exists():
-        return {"command": cmd,
+        return {"command": command,
                 "msg": "AGAT already done",
                 "out_fpath": out_fpath, 
                 "returncode": 99}
@@ -38,6 +39,8 @@ def run_agat(arguments: Dict[str, Any]) -> Dict[str, Any]:
 
 def get_agat_stats(agat_statistics: Dict[str, Any]) -> Dict[str, Any]:
     """Parse the AGAT result file into a dict of metrics."""
+
+    # Metrics of interest
     results = {
         "Gene_Models (N)": 0,
         "Transcript_Models (N)": 0,
@@ -106,16 +109,21 @@ def get_agat_stats(agat_statistics: Dict[str, Any]) -> Dict[str, Any]:
         "Shortest intron into exon part (bp)": "Shortest Intron Length (bp)"
     }
 
+# Read the statistics file produced by AGAT
     with open(agat_statistics["out_fpath"], 'r') as stats_fhand:
         for line in stats_fhand:
+            # Switch mapping depending on the section header
             if "--- transcript ---" in line:
                 mapping = mapping_transcript
             elif "--- mrna ---" in line:
                 mapping = mapping_mrna
-            if not line.rstrip():
+
+            if not line.rstrip():   # empty line → skip it
                 continue
-            if ':' in line:
+            if ':' in line:         # end-of-block marker → stop reading
                 break
+
+            # Save metrics we care about
             try:
                 key, val = line.rsplit(maxsplit=1)
                 key = key.strip()
@@ -123,9 +131,9 @@ def get_agat_stats(agat_statistics: Dict[str, Any]) -> Dict[str, Any]:
                 if key in mapping:
                     result_key = mapping[key]
                     if result_key == "Total Gene Space (Mb)":
-                        results[result_key] = round(val / 1_000_000, 2)
+                        results[result_key] = round(val / 1_000_000, 2) # convert bp → Mb
                     else:
                         results[result_key] = val
             except ValueError:
-                continue  # skip unparsable line
+                continue           # skip unparsable line
     return results
