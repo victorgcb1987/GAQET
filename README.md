@@ -36,72 +36,37 @@ conda install -c bioconda agat
 conda install -c bioconda gffread
 conda install -c bioconda busco
 conda install -c bioconda -c conda-forge ltr_retriever
-  conda install python==3.10
+conda install python==3.10
 ```
 
 
 ## Usage
 
-GAQET uses as a primary input a **File of files** as follows:
-```yaml
-ID: "SpeciesName"
-Assembly: "/path/to/assembly.fasta"
-Annotation: "/path/to/annotation.gff3"
-Basedir: "/path/to/GAQET/results"
-Threads: N
-Analysis:
-  - AGAT
-  - BUSCO
-  - PSAURON
-  - DETENGA
-  - OMARK
-  - PROTHOMOLOGY
-OMARK_db: "/path/to/omark_db.h5"
-OMARK_taxid: NCBItaxonID
-BUSCO_lineages:
-  -  clade1_odb10
-  -  clade2_odb10
-PROTHOMOLOGY_tags:
-  - TREMBL: "/path/to/uniprot_trembl_db.dmnd"
-  - SWISSPROT: "/path/to/uniprot_swssprot.dmnd"
-  - MYDB: "/path/to/mydb.dmnd"
-DETENGA_db: "rexdb-plant"
-
+GAQET uses as a primary input a **File of files**, a tab-separated file with a header row. Each subsequent line defines one sample:
+```
+| name    | ref_assembly   | ref_annotation   | annotation     | alignments   | lineage        |
+|---------|----------------|------------------|----------------|--------------|----------------|
+| sample1 | sample1.fa     | sample1.ref.gff3 | sample1.gff3   | sample1.bam  | eudicots_odb10 |
+| sample2 | sample2.fa     | sample2.ref.gff3 | sample2.gff3   | sample2.bam  | eudicots_odb10 |
 
 ```
 
-| Parameter     | Description                                  |
-|---------------|----------------------------------------------|
-| ID            | Name of the species                     |
-| Assembly      | FASTA genome file                            |
-| Annotation    | GFF3/GTF annotation file                    |
-| Basedir       | GAQET analysis and results directory       |
-| Threads       | Number of threads       |
-| Analysis      | List of analysis to run. All of them are optional      |
-| OMARK_db      | Path to omark db. Only needed if OMARK is in Analysis      |
-| OMARK_taxid | NCBI taxid for OMARK. Only needed if OMARK is in Analysis     |
-| BUSCO_lineages | List of BUSCO clades to run. Only needed if BUSCO is in Analysis      |
-| PROTHOMOLOGY_tags | List of name and path to DIAMOND proteins database. Only needed if  PROTHOMOLOGY is in Analysis     |
-| DETENGA_db | DeTEnGA database for interpro checks. Only needed if DETENGA is in Analysis    |
+| Parameter     | Description                                      |
+|---------------|--------------------------------------------------|
+| name          | unique sample identifier                         |
+| ref_assembly  | path to the reference genome FASTA               |
+| ref_annotation| path to the reference annotation GFF/GTF         |
+| annotation    | path to the annotation to evaluate (GFF/GTF)     |
+| alignments    | path to the RNA-seq alignments (BAM)             |
+| lineage       | BUSCO lineage dataset name (e.g. eudicots_odb10) |
 
 
-With the YAML file you can **run GAQET** as follows:
+With the FOF you can **run GAQET** as follows:
 
 ```bash
-GAQET --YAML {yaml_file}
+GAQET.py -i samples.fof -o results/ -t 8
 ```
-Some YAML config file values can be override by using **GAQET arguments**:
 
-
-| Parameter     | Description                                  |
-|---------------|----------------------------------------------|
-| --genome, -g          | Override YAML Assembly                     |
-| --annotation, -a          | Override YAML Annotation                            |
-| --taxid, -t          | Override NCBI taxid                    |
-| --outbase, -o   | Override YAML outbase       |
-
-
-
-```bash
-GAQET --YAML {yaml_file} -g {assembly.fasta} -a annotation.gff -t 3702 -o {outdir
-```
+-i, --input Path to the FOF (TSV)
+-o, --output Output directory (will contain one subfolder per sample)
+-t, --threads Number of CPU threads to use (default: 1)
