@@ -39,7 +39,7 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument("-t", "--threads", type=int, default=1,
                         help="Threads to use (default 1)")
 
-    if len(sys.argv) == 1:        # muestra ayuda si no hay argumentos
+    if len(sys.argv) == 1:
         parser.print_help()
         sys.exit()
 

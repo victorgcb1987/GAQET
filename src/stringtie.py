@@ -89,18 +89,16 @@ ddef calculate_annotation_scores(arguments: Dict[str, Any]) -> Dict[str, Any]:
     
     # Locate the stats file produced by GFFcompare
     statsfile = arguments["output"] / "RNASeqCheck"/ "{}.stats".format(Path(arguments["alignments"]).stem)
-    
-    annotation_scores = {}
 
     # Headings we look for in the .stats report
     f1_checks = ["Transcript level:", "Locus level:"]
     number_check = ["Matching transcripts:", "Matching loci:"]
     
-    f1_scores = {}
+    f1_scores = {} # dictionary for F1 scores
    
     with open(statsfile) as stats_fhand:
-        # Extract F1‑like scores
         for line in stats_fhand:
+            # Extract F1‑like scores
             for check in f1_checks:
                 if check in line:
                     line = line.strip()
@@ -109,6 +107,7 @@ ddef calculate_annotation_scores(arguments: Dict[str, Any]) -> Dict[str, Any]:
                     precision = float(line[4])
                     f1_calc = 2*(sensitivity*precision)/(sensitivity+precision)
                     f1_scores[check[:-1]+"_f1"] = f1_calc
+            # Matching numbers
             for check in number_check:
                 if check in line:
                     line = line.strip()
