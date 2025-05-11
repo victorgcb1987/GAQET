@@ -84,7 +84,7 @@ def run_gffcompare(arguments: Dict[str, Any]) -> Dict[str, Any]:
 # ---------------------------------------------------------------------------
 # 3.  Derive simple F1-style support scores from *.stats*
 # ---------------------------------------------------------------------------
-ddef calculate_annotation_scores(arguments: Dict[str, Any]) -> Dict[str, Any]:
+def calculate_annotation_scores(arguments: Dict[str, Any]) -> Dict[str, Any]:
     """Return F1 scores and matching counts parsed from the *.stats* file."""
     
     # Locate the stats file produced by GFFcompare
