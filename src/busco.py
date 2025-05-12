@@ -65,10 +65,9 @@ def run_busco(arguments: Dict[str, Any]) -> Dict[str, Any]:
     outdir = arguments["output"] / "BUSCOCompleteness"
 
     # BUSCO command
-    cmd = "busco -i {} -c {} -o {} --out_path {} --mode prot -l {}".format(arguments["input"],
+    cmd = "busco -i {} -c {} -o BUSCOCompleteness --out_path {} --mode prot -l {}".format(arguments["input"],
                                                                 arguments["threads"],
-                                                                arguments["input"].stem,
-                                                                outdir,
+                                                                arguments["output"],
                                                                 arguments["lineage"])
 
     if outdir.exists():
@@ -95,6 +94,7 @@ def run_busco(arguments: Dict[str, Any]) -> Dict[str, Any]:
 # ---------------------------------------------------------------------------
 def get_busco_results(busco_results: Dict[str, Any], lineage: str = "") -> str:
     """Return the summary line (with `%`) from BUSCO's *short_summary* file."""
+    
     busco_fpath = busco_results["out_fpath"] / "short_summary.specific.{}.BUSCOCompleteness.txt".format(lineage)
     with open(busco_fpath, encoding="utf-8") as fh:
         for line in fh:
