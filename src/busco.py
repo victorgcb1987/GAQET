@@ -65,10 +65,11 @@ def run_busco(arguments: Dict[str, Any]) -> Dict[str, Any]:
     outdir = arguments["output"] / "BUSCOCompleteness"
 
     # BUSCO command
-    cmd = "busco -i {} -c {} -o {} --mode prot -l {}".format(arguments["input"],
-                                                            arguments["threads"],
-                                                            outdir,
-                                                            arguments["lineage"])
+    cmd = "busco -i {} -c {} -o {} --out_path {} --mode prot -l {}".format(arguments["input"],
+                                                                arguments["threads"],
+                                                                arguments["input"].stem,
+                                                                outdir,
+                                                                arguments["lineage"])
 
     if outdir.exists():
         return {"command": cmd,
