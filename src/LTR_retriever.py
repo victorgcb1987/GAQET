@@ -266,7 +266,7 @@ def run_LAI(arguments: Dict[str, Any]) -> Dict[str, Any]:
 def get_LAI(lai_run: Dict[str, Any]) -> str:
     """Return ``"LAI:<value>"`` from the final *.LAI* file."""
 
-    with open(LAI["out_fpath"], encoding="utf-8") as fh:
+    with open(lai_run["out_fpath"], encoding="utf-8") as fh:
         for line in fh:
             if "whole_genome" in line:
                 line = line.strip()
