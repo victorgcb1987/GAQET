@@ -147,22 +147,3 @@ def main():
         
 if __name__ == "__main__":
     main()
-
-
-
-    # # Write summary
-    # with open("summary.tsv", "w", encoding="utf-8") as summary:
-    #     header = ["Name", *AGAT_COLS, "Busco results", "LAI", *RNASEQ_COLS]
-    #     summary.write("\t".join(header) + "\n")
-
-    #     for name in arguments["input"]:
-    #         if name not in stats:
-    #             continue                       # por si alguna muestra falló
-    #         row = [
-    #             name,
-    #             *[stats[name]["agat_statistics"][col] for col in AGAT_COLS],
-    #             stats[name]["busco_results"],
-    #             stats[name]["LAI"],
-    #             *[stats[name]["annotation_scores"][col] for col in RNASEQ_COLS],
-    #         ]
-    #         summary.write("\t".join(map(str, row)) + "\n")
