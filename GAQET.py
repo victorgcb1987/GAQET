@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """GAQET.py
 Simple command-line tool that runs four external pipelines (AGAT, BUSCO,
 LTR_retriever / LAI and RNA-seq with StringTie + GFFcompare) for each sample
